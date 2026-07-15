@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Pagina: Homepage
+   ========================================================================== */
+
+/* Sezione Hero (Copertina principale) */
+.hero {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #2D2D30 100%);
+    padding: 100px 40px;
+    text-align: center;
+    border-radius: 24px;
+    margin-bottom: 60px;
+    color: var(--white);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.hero::before {
+    content: 'RETRO';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    font-size: 150px;
+    font-weight: 900;
+    color: rgba(238, 21, 21, 0.03);
+    pointer-events: none;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 25px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 1;
+}
+
+.hero h1 span {
+    color: var(--primary-color);
+}
+
+.hero p {
+    font-size: 1.4rem;
+    color: #BBB;
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 500;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 35px;
+}
+
+/* Stili generali sezioni Homepage */
+.home-section {
+    margin-bottom: 80px;
+}
+
+.home-section h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+}
+
+.home-section h2 span {
+    color: var(--primary-color);
+}
+
+/* Griglia delle Categorie (Icone in Home) */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+.category-card {
+    background: var(--card-bg);
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-hover);
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.category-card h3 {
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Info Boxes (Servizio Trade-in e Programma Fedeltà) */
+.home-grid-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.info-box {
+    background: var(--card-bg);
+    padding: 50px;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+}
+
+.info-box.trade-in {
+    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://via.placeholder.com/600x400?text=Vintage+Games');
+    background-size: cover;
+}
+
+.info-box.loyalty {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #2D2D30 100%);
+    color: var(--white);
+    border-top: 5px solid var(--primary-color);
+}
+
+.info-content h2 {
+    text-align: left;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.info-content p {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+.info-box.loyalty .info-content p {
+    color: #BBB;
+}

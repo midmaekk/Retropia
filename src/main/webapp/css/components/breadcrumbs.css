@@ -1,0 +1,22 @@
+/* ==========================================================================
+   Componente: Breadcrumbs (Briciole di pane)
+   ========================================================================== */
+
+/* Briciole di pane per orientarsi nel sito (es. Home > Catalogo) */
+.breadcrumb {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.breadcrumb a:hover {
+    color: var(--primary-dark);
+}

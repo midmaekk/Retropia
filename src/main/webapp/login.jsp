@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retropia - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="scripts/main.js" defer></script>
+</head>
+<body>
+
+    <jsp:include page="fragments/header.jsp" />
+    <jsp:include page="fragments/navbar.jsp" />
+
+    <main class="auth-page">
+        <section class="auth-container">
+            <div class="auth-header">
+                <h1>Bentornato su <span>Retropia</span></h1>
+                <p>Accedi per gestire i tuoi ordini e le tue aste.</p>
+            </div>
+            
+            <% String errore = (String) request.getAttribute("erroreLogin"); 
+               if (errore != null) { %>
+               <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+                   <strong>Attenzione:</strong> <%= errore %>
+               </div>
+            <% } %>
+            
+            <form action="LoginServlet" method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Indirizzo Email</label>
+                    <input type="email" id="email" name="email" placeholder="esempio@email.it" required>
+                    <span class="error-message">Inserisci un'email valida.</span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    <span class="error-message">Password errata.</span>
+                </div>
+                
+                <div class="auth-options">
+                    <label><input type="checkbox"> Ricordami</label>
+                    <a href="#">Password dimenticata?</a>
+                </div>
+                
+                <button type="submit" class="btn-auth">Accedi al Team</button>
+            </form>
+
+            <div class="social-auth">
+                <p>Oppure accedi con</p>
+                <div class="social-buttons">
+                    <button class="btn-social">Google</button>
+                    <button class="btn-social">Discord</button>
+                </div>
+            </div>
+
+            <div class="auth-footer">
+                <p>Nuovo recluta? <a href="registrazione.jsp">Crea un account ora</a></p>
+            </div>
+        </section>
+    </main>
+
+    <jsp:include page="fragments/footer.jsp" />
+
+</body>
+</html>

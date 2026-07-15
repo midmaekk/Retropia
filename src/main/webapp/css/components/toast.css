@@ -1,0 +1,74 @@
+/* ==========================================================================
+   Componente: Toast Notifications
+   ========================================================================== */
+
+.toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.toast {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 300px;
+    max-width: 400px;
+    pointer-events: auto;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border-left: 5px solid var(--primary-color);
+}
+
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast.error {
+    border-left-color: #e74c3c;
+}
+
+.toast.success {
+    border-left-color: #2ecc71;
+}
+
+.toast.info {
+    border-left-color: #3498db;
+}
+
+.toast-icon {
+    font-size: 1.5rem;
+}
+
+.toast-message {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: #95a5a6;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s;
+}
+
+.toast-close:hover {
+    color: var(--secondary-color);
+}

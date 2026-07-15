@@ -1,0 +1,25 @@
+/* ==========================================================================
+   STYLE HUB PRINCIPALE
+   Questo file richiama tutti i moduli separati per mantenere il codice
+   pulito, ordinato e di facile manutenzione.
+   ========================================================================== */
+
+/* 1. Base (Variabili, Reset, Impostazioni globali) */
+@import url('base/reset.css');
+@import url('base/buttons.css');
+
+/* 2. Componenti (Stili riutilizzabili in più pagine) */
+@import url('components/product-card.css');
+@import url('components/breadcrumbs.css');
+@import url('components/toast.css');
+
+/* 3. Layout (Elementi strutturali come Header e Footer) */
+@import url('layout/header.css');
+@import url('layout/footer.css');
+
+/* 4. Pagine (Stili specifici per ogni pagina) */
+@import url('pages/home.css');
+@import url('pages/catalog.css');
+@import url('pages/product-detail.css');
+@import url('pages/cart.css');
+@import url('pages/auth.css');

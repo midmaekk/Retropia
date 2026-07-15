@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Variabili Globali e Reset
+   ========================================================================== */
+
+/* Colori principali del tema e variabili di utilità */
+:root {
+    --primary-color: #EE1515;    /* Rosso Rocket */
+    --primary-dark: #C31111;
+    --secondary-color: #1A1A1D;  /* Grafite scuro */
+    --accent-color: #4E4E50;     /* Grigio metallico */
+    --bg-color: #F4F4F4;         /* Sfondo generale */
+    --card-bg: #FFFFFF;          /* Sfondo card */
+    --text-color: #333333;       /* Testo principale */
+    --text-light: #666666;       /* Testo secondario */
+    --white: #FFFFFF;
+    --success: #27ae60;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 10px 30px rgba(238, 21, 21, 0.15);
+}
+
+/* Reset dei margini e padding predefiniti dei browser */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Impostazioni base della pagina: tipografia e layout flex */
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container principale dei contenuti per centrare e distanziare */
+main {
+    flex: 1;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
