@@ -65,7 +65,7 @@ public class ProdottoDAO {
                     p.setDescrizione(rs.getString("descrizione"));
                     p.setPrezzo(rs.getBigDecimal("prezzo_base"));
                     p.setQuantitaMagazzino(rs.getInt("quantita_stock"));
-                    p.setIva(new BigDecimal("22.00")); // Costante visto che non c'è nel DB attuale
+                    p.setIva(rs.getBigDecimal("iva"));
                     p.setUrlImmagine(rs.getString("url_immagine"));
                     p.setWishlistCount(rs.getInt("wishlist_count"));
                     p.setInWishlist(rs.getInt("in_wishlist") > 0);
@@ -113,7 +113,7 @@ public class ProdottoDAO {
                     p.setDescrizione(rs.getString("descrizione"));
                     p.setPrezzo(rs.getBigDecimal("prezzo_base"));
                     p.setQuantitaMagazzino(rs.getInt("quantita_stock"));
-                    p.setIva(new BigDecimal("22.00"));
+                    p.setIva(rs.getBigDecimal("iva"));
                     p.setUrlImmagine(rs.getString("url_immagine"));
                     p.setWishlistCount(rs.getInt("wishlist_count"));
                     p.setInWishlist(rs.getInt("in_wishlist") > 0);

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Utente;
 import model.UtenteDAO;
+import utils.SecurityUtils;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -24,8 +25,11 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
+        // Hashing della password per confrontarla con quella nel DB
+        String hash = SecurityUtils.hashPassword(password);
+        
         UtenteDAO utenteDAO = new UtenteDAO();
-        Utente utente = utenteDAO.doRetrieveByEmailAndPassword(email, password);
+        Utente utente = utenteDAO.doRetrieveByEmailAndPassword(email, hash);
         
         if (utente != null) {
             // Login riuscito! Creiamo (o recuperiamo) la sessione

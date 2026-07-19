@@ -33,21 +33,15 @@ public class CartItem implements Serializable {
         this.quantita = quantita;
     }
 
-    // Metodo helper per calcolare il prezzo totale per questa riga
-    // Moltiplica il prezzo (ivato) del prodotto per la quantità
+    // Metodo helper per calcolare il prezzo totale per questa riga.
+    // Il campo prezzo_base nel DB è già IVA inclusa (prezzo lordo),
+    // quindi il totale è semplicemente prezzo * quantità.
+    // Il campo iva del Prodotto viene usato solo per la tracciabilità storica
+    // nella riga d'ordine (dettagli_ordine.iva_applicata), non per ricalcolare il prezzo.
     public BigDecimal getTotale() {
         if (prodotto == null || prodotto.getPrezzo() == null) {
             return BigDecimal.ZERO;
         }
-        
-        // Calcolo base per semplificare, l'IVA potrebbe essere aggiunta qui o gestita in base al requisito
-        // Assumiamo che prodotto.getPrezzo() sia il prezzo netto e l'IVA sia una percentuale (es. 22.0)
-        BigDecimal prezzoNetto = prodotto.getPrezzo();
-        BigDecimal iva = prodotto.getIva() != null ? prodotto.getIva() : BigDecimal.ZERO;
-        
-        BigDecimal moltiplicatoreIva = BigDecimal.ONE.add(iva.divide(new BigDecimal("100")));
-        BigDecimal prezzoLordo = prezzoNetto.multiply(moltiplicatoreIva);
-        
-        return prezzoLordo.multiply(new BigDecimal(quantita));
+        return prodotto.getPrezzo().multiply(new BigDecimal(quantita));
     }
 }

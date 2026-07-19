@@ -16,16 +16,6 @@
     border: 1px solid rgba(255,255,255,0.05);
 }
 
-.hero::before {
-    content: 'RETRO';
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    font-size: 150px;
-    font-weight: 900;
-    color: rgba(238, 21, 21, 0.03);
-    pointer-events: none;
-}
 
 .hero h1 {
     font-size: 4rem;

@@ -73,13 +73,10 @@ public class RigaOrdine implements Serializable {
         this.quantita = quantita;
     }
     
+    // prezzoAcquisto è già il prezzo lordo (IVA inclusa) congelato al momento dell'ordine.
+    // L'ivaAcquisto viene salvata solo per tracciabilità storica, non per ricalcolare il prezzo.
     public BigDecimal getTotaleRiga() {
         if (prezzoAcquisto == null) return BigDecimal.ZERO;
-        
-        BigDecimal iva = ivaAcquisto != null ? ivaAcquisto : BigDecimal.ZERO;
-        BigDecimal moltiplicatoreIva = BigDecimal.ONE.add(iva.divide(new BigDecimal("100")));
-        BigDecimal prezzoLordo = prezzoAcquisto.multiply(moltiplicatoreIva);
-        
-        return prezzoLordo.multiply(new BigDecimal(quantita));
+        return prezzoAcquisto.multiply(new BigDecimal(quantita));
     }
 }

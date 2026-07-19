@@ -110,4 +110,55 @@ public class UtenteDAO {
         }
         return false;
     }
+
+    /**
+     * Aggiorna nome, cognome ed email dell'utente.
+     * Restituisce true se almeno una riga è stata modificata.
+     */
+    public boolean doUpdate(Utente u) {
+        String query = "UPDATE utente SET nome = ?, cognome = ?, email = ? WHERE id_utente = ?";
+        try (Connection con = ConPool.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, u.getNome());
+            ps.setString(2, u.getCognome());
+            ps.setString(3, u.getEmail());
+            ps.setInt(4, u.getId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * Aggiorna la password dell'utente dopo aver verificato quella vecchia.
+     * @param idUtente      ID dell'utente
+     * @param vecchioHash   SHA-256 della password attuale (già hashata)
+     * @param nuovoHash     SHA-256 della nuova password (già hashata)
+     * @return true se aggiornata, false se la vecchia password non corrisponde o errore DB
+     */
+    public boolean doUpdatePassword(int idUtente, String vecchioHash, String nuovoHash) {
+        // Prima verifica che la password attuale sia corretta
+        String queryCheck = "SELECT id_utente FROM utente_registrato WHERE id_utente = ? AND password_hash = ?";
+        String queryUpdate = "UPDATE utente_registrato SET password_hash = ? WHERE id_utente = ?";
+        try (Connection con = ConPool.getConnection();
+             PreparedStatement psCheck = con.prepareStatement(queryCheck)) {
+            psCheck.setInt(1, idUtente);
+            psCheck.setString(2, vecchioHash);
+            try (ResultSet rs = psCheck.executeQuery()) {
+                if (!rs.next()) {
+                    return false; // Vecchia password errata
+                }
+            }
+            try (PreparedStatement psUpdate = con.prepareStatement(queryUpdate)) {
+                psUpdate.setString(1, nuovoHash);
+                psUpdate.setInt(2, idUtente);
+                return psUpdate.executeUpdate() > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
+

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Prodotto" %>
 <%
     Prodotto prodotto = (Prodotto) request.getAttribute("prodotto");
@@ -19,8 +19,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retropia - Dettaglio Prodotto</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="scripts/main.js?v=3" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=4">
+    <script src="scripts/main.js?v=4" defer></script>
 </head>
 <body>
 
@@ -59,13 +59,28 @@
                     <form action="CarrelloServlet" method="post" style="display: flex; flex-direction: column; align-items: flex-start; gap: 15px;">
                         <input type="hidden" name="action" value="add">
                         <input type="hidden" name="id" value="<%= prodotto.getId() %>">
+                        <% 
+                            int inCart = 0;
+                            model.Carrello currentCart = (model.Carrello) session.getAttribute("carrello");
+                            if (currentCart != null) {
+                                for (model.CartItem item : currentCart.getElementi()) {
+                                    if (item.getProdotto().getId() == prodotto.getId()) {
+                                        inCart = item.getQuantita();
+                                        break;
+                                    }
+                                }
+                            }
+                            int maxAddable = prodotto.getQuantitaMagazzino() - inCart;
+                        %>
                         <div class="quantity-selector">
                             <label for="quantity">Quantità:</label>
-                            <input type="number" id="quantity" name="quantita" value="1" min="1" max="<%= prodotto.getQuantitaMagazzino() > 0 ? prodotto.getQuantitaMagazzino() : 1 %>">
+                            <input type="number" id="quantity" name="quantita" value="1" min="1" max="<%= maxAddable > 0 ? maxAddable : 1 %>" <%= maxAddable <= 0 ? "disabled" : "" %>>
                         </div>
                         <div>
-                            <% if (prodotto.getQuantitaMagazzino() > 0) { %>
+                            <% if (maxAddable > 0) { %>
                                 <button type="submit" class="btn-add-cart">Aggiungi al Carrello</button>
+                            <% } else if (prodotto.getQuantitaMagazzino() > 0 && maxAddable <= 0) { %>
+                                <button type="button" class="btn-add-cart" style="background-color: #f39c12; cursor: not-allowed;" disabled>Hai raggiunto il limite nel carrello</button>
                             <% } else { %>
                                 <button type="button" class="btn-add-cart" style="background-color: #95a5a6; cursor: not-allowed;" disabled>Esaurito</button>
                             <% } %>

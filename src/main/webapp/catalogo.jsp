@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="model.Prodotto" %>
 <%
@@ -15,8 +15,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retropia - Catalogo</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="scripts/main.js?v=3" defer></script>
+    <link rel="stylesheet" href="css/style.css?v=4">
+    <script src="scripts/main.js?v=4" defer></script>
 </head>
 <body>
 
@@ -113,7 +113,11 @@
                             <input type="hidden" name="action" value="add">
                             <input type="hidden" name="id" value="<%= p.getId() %>">
                             <input type="hidden" name="quantita" value="1">
-                            <button type="submit" class="btn" style="background-color:#2ecc71;">Aggiungi</button>
+                            <% if (p.getQuantitaMagazzino() > 0) { %>
+                                <button type="submit" class="btn" style="background-color:#2ecc71;">Aggiungi</button>
+                            <% } else { %>
+                                <button type="button" class="btn" style="background-color:#95a5a6; cursor:not-allowed;" disabled>Esaurito</button>
+                            <% } %>
                         </form>
                     </div>
                 </div>

@@ -45,3 +45,17 @@
 
 <!-- Toast Notification Container -->
 <div id="toast-container" class="toast-container"></div>
+
+<%
+    String toastMsg = (String) session.getAttribute("toastMessage");
+    if (toastMsg != null) {
+%>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            showToast("<%= toastMsg.replace("\"", "\\\"") %>", "info");
+        });
+    </script>
+<%
+        session.removeAttribute("toastMessage");
+    }
+%>

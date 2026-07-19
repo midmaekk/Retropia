@@ -42,7 +42,25 @@ public class CarrelloServlet extends HttpServlet {
                     
                     Prodotto p = prodottoDAO.doRetrieveById(id);
                     if (p != null) {
-                        carrello.aggiungiProdotto(p, quantita);
+                        // Trova la quantità già nel carrello
+                        int qtaPresente = 0;
+                        for (model.CartItem item : carrello.getElementi()) {
+                            if (item.getProdotto().getId() == id) {
+                                qtaPresente = item.getQuantita();
+                                break;
+                            }
+                        }
+                        
+                        // Controllo stock
+                        if (qtaPresente + quantita > p.getQuantitaMagazzino()) {
+                            int qtaAggiungibile = p.getQuantitaMagazzino() - qtaPresente;
+                            if (qtaAggiungibile > 0) {
+                                carrello.aggiungiProdotto(p, qtaAggiungibile);
+                            }
+                            session.setAttribute("toastMessage", "Quantità massima raggiunta per " + p.getNome());
+                        } else {
+                            carrello.aggiungiProdotto(p, quantita);
+                        }
                     }
                 } 
                 else if (action.equals("remove")) {
@@ -52,7 +70,15 @@ public class CarrelloServlet extends HttpServlet {
                 else if (action.equals("update")) {
                     int id = Integer.parseInt(request.getParameter("id"));
                     int quantita = Integer.parseInt(request.getParameter("quantita"));
-                    carrello.setQuantita(id, quantita);
+                    
+                    Prodotto p = prodottoDAO.doRetrieveById(id);
+                    if (p != null) {
+                        if (quantita > p.getQuantitaMagazzino()) {
+                            quantita = p.getQuantitaMagazzino();
+                            session.setAttribute("toastMessage", "Quantità massima disponibile: " + p.getQuantitaMagazzino());
+                        }
+                        carrello.setQuantita(id, quantita);
+                    }
                 } 
                 else if (action.equals("empty")) {
                     carrello.svuota();

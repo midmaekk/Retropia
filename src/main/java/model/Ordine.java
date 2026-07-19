@@ -10,9 +10,10 @@ public class Ordine implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int id;
-    private int idUtente; // Riferimento all'utente che ha fatto l'ordine
+    private int idUtente;
     private Timestamp dataOrdine;
     private BigDecimal totale;
+    private String indirizzoSpedizione; // Es. "Via Roma 1, Milano 20100"
     private List<RigaOrdine> righe;
 
     public Ordine() {
@@ -67,6 +68,14 @@ public class Ordine implements Serializable {
         this.righe = righe;
     }
     
+    public String getIndirizzoSpedizione() {
+        return indirizzoSpedizione;
+    }
+
+    public void setIndirizzoSpedizione(String indirizzoSpedizione) {
+        this.indirizzoSpedizione = indirizzoSpedizione;
+    }
+
     public void addRiga(RigaOrdine riga) {
         this.righe.add(riga);
     }

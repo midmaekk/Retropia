@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Utente;
 import model.UtenteDAO;
+import utils.SecurityUtils;
 
 @WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
@@ -40,7 +41,10 @@ public class RegistrationServlet extends HttpServlet {
         u.setNome(nome);
         u.setCognome(cognome);
         u.setEmail(email);
-        u.setPasswordHash(password); // N.B. andrebbe hashata
+        
+        // Hashing della password in SHA-256
+        String hash = SecurityUtils.hashPassword(password);
+        u.setPasswordHash(hash);
 
         // Salvataggio nel DB
         try {

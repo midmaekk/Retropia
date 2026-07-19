@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Carrello" %>
 <%@ page import="model.CartItem" %>
 <%
@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retropia - Il Tuo Carrello</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=4">
     <script src="scripts/main.js" defer></script>
 </head>
 <body>
@@ -49,7 +49,7 @@
                             %>
                             <tr>
                                 <td class="product-cell" data-label="Prodotto">
-                                    <img src="images/placeholder.jpg" alt="<%= item.getProdotto().getNome() %>" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x75?text=Retropia'">
+                                    <img src="<%= item.getProdotto().getUrlImmagine() != null ? item.getProdotto().getUrlImmagine() : "images/placeholder.jpg" %>" alt="<%= item.getProdotto().getNome() %>" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x75?text=Retropia'">
                                     <div>
                                         <p class="product-name"><%= item.getProdotto().getNome() %></p>
                                     </div>
@@ -59,7 +59,7 @@
                                     <form action="CarrelloServlet" method="post" style="display:inline-flex; align-items:center; gap: 5px;">
                                         <input type="hidden" name="action" value="update">
                                         <input type="hidden" name="id" value="<%= item.getProdotto().getId() %>">
-                                        <input type="number" name="quantita" value="<%= item.getQuantita() %>" min="1" class="qty-input" onchange="this.form.submit()">
+                                        <input type="number" name="quantita" value="<%= item.getQuantita() %>" min="1" max="<%= item.getProdotto().getQuantitaMagazzino() %>" class="qty-input" onchange="this.form.submit()">
                                     </form>
                                 </td>
                                 <td data-label="Totale" class="item-total">€<%= String.format("%.2f", item.getTotale()) %></td>
@@ -95,7 +95,11 @@
                         <span>€<%= String.format("%.2f", carrello.getPrezzoTotale()) %></span>
                     </div>
                     <p class="iva-notice">Tutti i prezzi includono l'IVA.</p>
-                    <button class="btn-checkout">Procedi al Checkout</button>
+                    <% if (!carrello.getElementi().isEmpty()) { %>
+                        <a href="checkout.jsp" class="btn-checkout" style="text-decoration:none; display:inline-block; text-align:center;">Procedi al Checkout</a>
+                    <% } else { %>
+                        <button class="btn-checkout" disabled style="opacity: 0.5; cursor: not-allowed;">Carrello Vuoto</button>
+                    <% } %>
                 </aside>
             </div>
         </section>

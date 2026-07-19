@@ -1,6 +1,40 @@
 // Retropia - Main JavaScript file
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Retropia: Document Loaded');
+
+    // =========================================================
+    // DROPDOWN UTENTE — Avatar con menu a tendina
+    // =========================================================
+    const avatarBtn = document.getElementById('userAvatarBtn');
+    const dropdownMenu = document.getElementById('userDropdownMenu');
+    const dropdown = document.getElementById('userDropdown');
+
+    if (avatarBtn && dropdownMenu) {
+        // Click sul bottone: apre/chiude. stopPropagation impedisce
+        // al listener globale di chiuderlo subito dopo averlo aperto.
+        avatarBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = dropdownMenu.classList.toggle('is-open');
+            avatarBtn.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Click fuori dal dropdown: chiude il menu
+        document.addEventListener('click', function(e) {
+            if (dropdown && !dropdown.contains(e.target)) {
+                dropdownMenu.classList.remove('is-open');
+                avatarBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Tasto Escape: chiude il menu
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && dropdownMenu.classList.contains('is-open')) {
+                dropdownMenu.classList.remove('is-open');
+                avatarBtn.setAttribute('aria-expanded', 'false');
+                avatarBtn.focus();
+            }
+        });
+    }
 });
 
 // Funzione per mostrare le notifiche Toast
