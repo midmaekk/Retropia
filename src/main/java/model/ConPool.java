@@ -9,7 +9,7 @@ public class ConPool {
     // Configurazione del Database
     private static final String URL = "jdbc:mysql://localhost:3306/ecommerce_db?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
-    private static final String PASS = "admin";
+    private static final String PASS = "Admin123!";
     
     public static Connection getConnection() throws SQLException {
         try {

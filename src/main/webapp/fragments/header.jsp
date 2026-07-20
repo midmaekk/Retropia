@@ -12,9 +12,10 @@
         <div class="logo">
             <a href="index.jsp"><h1><span>R</span>etropia</h1></a>
         </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Cerca giochi o console...">
-            <button type="button">Cerca</button>
+        <div class="search-bar" style="position: relative;">
+            <input type="text" id="searchInput" placeholder="Cerca giochi o console..." autocomplete="off">
+            <button type="button" id="searchButton">Cerca</button>
+            <ul id="searchSuggestions" class="suggestions-list" style="display: none;"></ul>
         </div>
         <div class="user-actions">
             <% if (utenteLoggato != null) { %>

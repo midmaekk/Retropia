@@ -35,6 +35,71 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // =========================================================
+    // AJAX SEARCH BAR (Suggerimenti dinamici)
+    // =========================================================
+    const searchInput = document.getElementById('searchInput');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+    let searchTimeout = null;
+
+    if (searchInput && searchSuggestions) {
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim();
+            
+            clearTimeout(searchTimeout);
+            
+            if (query.length < 2) {
+                searchSuggestions.style.display = 'none';
+                searchSuggestions.innerHTML = '';
+                return;
+            }
+            
+            // Aspetta 300ms prima di fare la chiamata (debounce) per non intasare il server
+            searchTimeout = setTimeout(() => {
+                fetch('RicercaAjax?q=' + encodeURIComponent(query))
+                    .then(response => {
+                        if (!response.ok) throw new Error('Errore nella risposta di rete');
+                        return response.json();
+                    })
+                    .then(data => {
+                        searchSuggestions.innerHTML = '';
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const li = document.createElement('li');
+                                li.innerHTML = `
+                                    <a href="prodotto.jsp?id=${item.id}" class="suggestion-item">
+                                        <img src="${item.immagine}" class="suggestion-img" alt="${item.nome}">
+                                        <span class="suggestion-name">${item.nome}</span>
+                                    </a>
+                                `;
+                                searchSuggestions.appendChild(li);
+                            });
+                        } else {
+                            searchSuggestions.innerHTML = '<li class="suggestion-empty">Nessun prodotto trovato</li>';
+                        }
+                        searchSuggestions.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Errore durante la ricerca:', error);
+                    });
+            }, 300);
+        });
+
+        // Chiudi i suggerimenti se si clicca fuori dalla barra
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+                searchSuggestions.style.display = 'none';
+            }
+        });
+        
+        // Riapri i suggerimenti se si torna col focus sulla barra
+        searchInput.addEventListener('focus', function() {
+            if (this.value.trim().length >= 2 && searchSuggestions.innerHTML !== '') {
+                searchSuggestions.style.display = 'block';
+            }
+        });
+    }
 });
 
 // Funzione per mostrare le notifiche Toast

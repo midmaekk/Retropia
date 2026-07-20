@@ -126,6 +126,33 @@ public class ProdottoDAO {
         return null;
     }
 
+    public List<Prodotto> searchByNome(String keyword) {
+        List<Prodotto> prodotti = new ArrayList<>();
+        String query = "SELECT p.*, " +
+                       "(SELECT url_immagine FROM immagine i WHERE i.id_prodotto = p.id_prodotto LIMIT 1) AS url_immagine " +
+                       "FROM prodotto p WHERE p.nome_prodotto LIKE ? ORDER BY p.nome_prodotto ASC LIMIT 5";
+        
+        try (Connection con = ConPool.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setString(1, "%" + keyword + "%");
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Prodotto p = new Prodotto();
+                    p.setId(rs.getInt("id_prodotto"));
+                    p.setNome(rs.getString("nome_prodotto"));
+                    p.setUrlImmagine(rs.getString("url_immagine"));
+                    prodotti.add(p);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return prodotti;
+    }
+
     // Aggiunge o rimuove un prodotto dalla wishlist.
     // Ritorna un array int[] dove l'indice 0 è il nuovo stato (1 se aggiunto, 0 se rimosso) 
     // e l'indice 1 è il nuovo conteggio totale dei wishlist per quel prodotto.
