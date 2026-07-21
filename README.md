@@ -36,7 +36,7 @@ Il database `ecommerce_db` e' strutturato per garantire integrita' referenziale.
 
 1. Creare il database locale `ecommerce_db` nel proprio MySQL.
 2. Importare i file `DB.sql` per lo schema e `popola_db.sql` per i dati mock.
-3. Aprire Eclipse (o IDE simile) e importare il progetto come "Dynamic Web Project".
+3. Aprire Eclipse (o IDE simile) e importare il progetto usando Git
 4. Verificare che il server target sia configurato su Apache Tomcat 9.
 5. Inserire le credenziali del proprio DB in `META-INF/context.xml` (username, password).
 6. Run on Server -> `http://localhost:8080/Retropia`
