@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -11,14 +11,14 @@
 </head>
 <body>
 
-    <jsp:include page="fragments/header.jsp" />
-    <jsp:include page="fragments/navbar.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/navbar.jsp" />
 
     <main class="auth-page">
         <section class="auth-container">
             <div class="auth-header">
                 <h1>Bentornato su <span>Retropia</span></h1>
-                <p>Accedi per gestire i tuoi ordini e le tue aste.</p>
+                <p>Accedi per gestire i tuoi ordini e il tuo profilo.</p>
             </div>
             
             <% String errore = (String) request.getAttribute("erroreLogin"); 
@@ -48,21 +48,14 @@
                 <button type="submit" class="btn-auth">Accedi al Team</button>
             </form>
 
-            <div class="social-auth">
-                <p>Oppure accedi con</p>
-                <div class="social-buttons">
-                    <button class="btn-social">Google</button>
-                    <button class="btn-social">Discord</button>
-                </div>
-            </div>
 
             <div class="auth-footer">
-                <p>Nuovo recluta? <a href="registrazione.jsp">Crea un account ora</a></p>
+                <p>Nuovo recluta? <a href="${pageContext.request.contextPath}/RegistrationServlet">Crea un account ora</a></p>
             </div>
         </section>
     </main>
 
-    <jsp:include page="fragments/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 
 </body>
 </html>

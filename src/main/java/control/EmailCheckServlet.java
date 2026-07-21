@@ -16,7 +16,7 @@ public class EmailCheckServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         
-        // Impostiamo il formato di risposta come JSON (richiesto dalla checklist)
+        // Impostiamo il formato di risposta come JSON
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         

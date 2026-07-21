@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina non trovata - Retropia</title>
+    <title>Accesso Negato - Retropia</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="error-container">
-        <h1>404</h1>
-        <p>Oops! La pagina che stai cercando non esiste.</p>
-        <a href="index.jsp">Torna alla Home</a>
+        <h1>403</h1>
+        <p>Non hai i permessi necessari per accedere a questa risorsa.</p>
+        <a href="${pageContext.request.contextPath}/Home">Torna alla Home</a>
     </div>
 </body>
 </html>

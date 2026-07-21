@@ -17,16 +17,13 @@ import model.Utente;
 /**
  * Filtro di autenticazione per le pagine riservate ai clienti loggati.
  * Intercetta le richieste verso il checkout e lo storico ordini,
- * reindirizzando a login.jsp se l'utente non e' autenticato.
+ * reindirizzando al login se l'utente non e' autenticato.
  */
 @WebFilter(urlPatterns = {
-    "/checkout.jsp",
     "/CheckoutServlet",
-    "/storico.jsp",
     "/StoricoOrdiniServlet",
     "/Fattura",
-    "/Profilo",
-    "/profilo.jsp"
+    "/Profilo"
 })
 public class AuthFilter implements Filter {
 
@@ -58,10 +55,8 @@ public class AuthFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             // L'utente non e' loggato: reindirizziamo al login
-            // Salviamo l'URL originale nella sessione cosi' dopo il login possiamo tornare qui
-            HttpSession newSession = req.getSession(true);
-            newSession.setAttribute("redirectAfterLogin", req.getRequestURI());
-            res.sendRedirect(req.getContextPath() + "/login.jsp");
+            req.getSession(true).setAttribute("erroreLog", "Devi effettuare l'accesso per visualizzare questa pagina.");
+            res.sendRedirect(req.getContextPath() + "/LoginServlet");
         }
     }
 

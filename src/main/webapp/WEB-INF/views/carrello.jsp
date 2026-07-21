@@ -19,8 +19,8 @@
 </head>
 <body>
 
-    <jsp:include page="fragments/header.jsp" />
-    <jsp:include page="fragments/navbar.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/navbar.jsp" />
 
     <main>
         <section class="cart-container">
@@ -75,7 +75,7 @@
                     </table>
                     
                     <div class="cart-actions">
-                        <a href="catalogo.jsp" class="btn-secondary">Continua lo Shopping</a>
+                        <a href="${pageContext.request.contextPath}/Catalogo" class="btn-secondary">Continua lo Shopping</a>
                         <a href="CarrelloServlet?action=empty" class="btn-danger" style="text-decoration:none; display:inline-block; text-align:center;">Svuota Carrello</a>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                     </div>
                     <p class="iva-notice">Tutti i prezzi includono l'IVA.</p>
                     <% if (!carrello.getElementi().isEmpty()) { %>
-                        <a href="checkout.jsp" class="btn-checkout" style="text-decoration:none; display:inline-block; text-align:center;">Procedi al Checkout</a>
+                        <a href="${pageContext.request.contextPath}/CheckoutServlet" class="btn-checkout" style="text-decoration:none; display:inline-block; text-align:center;">Procedi al Checkout</a>
                     <% } else { %>
                         <button class="btn-checkout" disabled style="opacity: 0.5; cursor: not-allowed;">Carrello Vuoto</button>
                     <% } %>
@@ -105,7 +105,7 @@
         </section>
     </main>
 
-    <jsp:include page="fragments/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 
 </body>
 </html>

@@ -88,9 +88,16 @@ public class CarrelloServlet extends HttpServlet {
             }
         }
 
-        // Reindirizziamo sempre alla pagina del carrello dopo un'azione
-        // (Uso sendRedirect per evitare che l'utente ricaricando la pagina ripeta l'azione)
-        response.sendRedirect(request.getContextPath() + "/carrello.jsp");
+        if (action != null) {
+            // Se c'è un'azione, dopo averla eseguita facciamo un redirect alla Servlet stessa
+            // senza parametri, per evitare il doppio submit ricaricando la pagina.
+            response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
+        } else {
+            // Se non c'è azione, l'utente vuole solo visualizzare il carrello.
+            // Inoltriamo la richiesta alla JSP nascosta in WEB-INF
+            javax.servlet.RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/carrello.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

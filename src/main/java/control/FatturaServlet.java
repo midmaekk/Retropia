@@ -1,4 +1,4 @@
-﻿package control;
+package control;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -30,7 +30,7 @@ public class FatturaServlet extends HttpServlet {
 
         // Doppia protezione: AuthFilter dovrebbe gia' bloccare, ma meglio verificare
         if (utente == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
 
@@ -64,7 +64,7 @@ public class FatturaServlet extends HttpServlet {
         request.setAttribute("ordine", ordine);
         request.setAttribute("utente", utente);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/fattura.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/fattura.jsp");
         dispatcher.forward(request, response);
     }
 

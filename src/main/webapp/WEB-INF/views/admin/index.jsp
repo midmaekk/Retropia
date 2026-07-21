@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Area Amministratore - Retropia</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body style="background-color: #f4f6f9;">
 
@@ -20,18 +20,24 @@
             <div style="flex: 1; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
                 <h3>Gestione Catalogo</h3>
                 <p>Inserisci, modifica o elimina prodotti dal database.</p>
-                <button class="btn" style="width: 100%; margin-top: 10px;">Gestisci Prodotti</button>
+                <a href="${pageContext.request.contextPath}/admin/prodotti" 
+                   style="display: block; text-align: center; text-decoration: none; box-sizing: border-box; width: 100%; margin-top: 10px; background-color: #2c3e50; color: white; padding: 0.6rem; border-radius: 4px; font-weight: bold;">
+                   Gestisci Prodotti
+                </a>
             </div>
             
             <div style="flex: 1; padding: 1rem; border: 1px solid #ddd; border-radius: 4px;">
                 <h3>Gestione Ordini</h3>
                 <p>Visualizza e filtra gli ordini dei clienti.</p>
-                <button class="btn" style="width: 100%; margin-top: 10px;">Visualizza Ordini</button>
+                <a href="${pageContext.request.contextPath}/admin/ordini"
+                   style="display: block; text-align: center; text-decoration: none; box-sizing: border-box; width: 100%; margin-top: 10px; background-color: #27ae60; color: white; padding: 0.6rem; border-radius: 4px; font-weight: bold;">
+                   Visualizza Ordini
+                </a>
             </div>
         </div>
         
         <div style="margin-top: 2rem; text-align: center;">
-            <a href="../catalogo.jsp" class="btn-secondary">Torna al Sito Pubblico</a>
+            <a href="${pageContext.request.contextPath}/Catalogo" class="btn-secondary">Torna al Sito Pubblico</a>
         </div>
     </main>
 

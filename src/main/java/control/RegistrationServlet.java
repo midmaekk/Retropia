@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,12 @@ import utils.SecurityUtils;
 public class RegistrationServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Forward interno per mostrare il form di registrazione nascosto in WEB-INF
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/registrazione.jsp");
+        dispatcher.forward(request, response);
+    }
+    
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
@@ -25,7 +32,7 @@ public class RegistrationServlet extends HttpServlet {
         
         // Semplice validazione server-side
         if (nome == null || cognome == null || email == null || password == null || !password.equals(confermaPassword)) {
-            response.sendRedirect(request.getContextPath() + "/registrazione.jsp?error=invalid");
+            response.sendRedirect(request.getContextPath() + "/RegistrationServlet?error=invalid");
             return;
         }
 
@@ -33,7 +40,7 @@ public class RegistrationServlet extends HttpServlet {
         
         // Verifica se l'email esiste già
         if (dao.checkEmailExists(email)) {
-            response.sendRedirect(request.getContextPath() + "/registrazione.jsp?error=exists");
+            response.sendRedirect(request.getContextPath() + "/RegistrationServlet?error=exists");
             return;
         }
 
@@ -52,13 +59,13 @@ public class RegistrationServlet extends HttpServlet {
                 // Autologin dopo la registrazione
                 HttpSession session = request.getSession();
                 session.setAttribute("utenteLoggato", u);
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                response.sendRedirect(request.getContextPath() + "/Home");
             } else {
-                response.sendRedirect(request.getContextPath() + "/registrazione.jsp?error=db");
+                response.sendRedirect(request.getContextPath() + "/RegistrationServlet?error=db");
             }
         } catch (RuntimeException e) {
             String msg = e.getMessage() != null ? java.net.URLEncoder.encode(e.getMessage(), "UTF-8") : "Errore Sconosciuto";
-            response.sendRedirect(request.getContextPath() + "/registrazione.jsp?error=db&msg=" + msg);
+            response.sendRedirect(request.getContextPath() + "/RegistrationServlet?error=db&msg=" + msg);
         }
     }
 }

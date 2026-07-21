@@ -10,7 +10,7 @@
 <header>
     <div class="header-content">
         <div class="logo">
-            <a href="index.jsp"><h1><span>R</span>etropia</h1></a>
+            <a href="${pageContext.request.contextPath}/Home"><h1><span>R</span>etropia</h1></a>
         </div>
         <div class="search-bar" style="position: relative;">
             <input type="text" id="searchInput" placeholder="Cerca giochi o console..." autocomplete="off">
@@ -20,7 +20,7 @@
         <div class="user-actions">
             <% if (utenteLoggato != null) { %>
                 <% if (utenteLoggato.isAdmin()) { %>
-                    <a href="${pageContext.request.contextPath}/admin/index.jsp" class="admin-badge">&#9881; Admin</a>
+                    <a href="${pageContext.request.contextPath}/admin/dashboard" class="admin-badge">&#9881; Admin</a>
                 <% } %>
 
                 <!-- Avatar dropdown utente -->
@@ -39,6 +39,9 @@
                         <a href="${pageContext.request.contextPath}/StoricoOrdiniServlet" class="dropdown-item" role="menuitem">
                             <span class="dropdown-icon">&#128230;</span> Storico Ordini
                         </a>
+                        <a href="${pageContext.request.contextPath}/WishlistPage" class="dropdown-item" role="menuitem">
+                            <span class="dropdown-icon">&#10084;</span> La mia Wishlist
+                        </a>
                         <hr class="dropdown-divider">
                         <a href="${pageContext.request.contextPath}/Logout" class="dropdown-item dropdown-item--danger" role="menuitem">
                             <span class="dropdown-icon">&#10148;</span> Esci
@@ -47,10 +50,10 @@
                 </div>
 
             <% } else { %>
-                <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
+                <a href="${pageContext.request.contextPath}/LoginServlet">Login</a>
             <% } %>
             
-            <a href="${pageContext.request.contextPath}/carrello.jsp" class="cart-link">
+            <a href="${pageContext.request.contextPath}/CarrelloServlet" class="cart-link">
                 <span class="cart-icon">&#128722;</span>
                 Carrello <% if(oggettiCarrello > 0) { %><span class="cart-badge"><%= oggettiCarrello %></span><% } %>
             </a>

@@ -7,7 +7,7 @@
 <%
     Utente utente = (Utente) session.getAttribute("utenteLoggato");
     if (utente == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("LoginServlet");
         return;
     }
     List<Ordine> ordini = (List<Ordine>) request.getAttribute("ordini");
@@ -54,8 +54,8 @@
 </head>
 <body>
 
-    <jsp:include page="fragments/header.jsp" />
-    <jsp:include page="fragments/navbar.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/navbar.jsp" />
 
     <main>
         <section style="max-width: 900px; margin: 2rem auto;">
@@ -65,7 +65,7 @@
             <% if (ordini == null || ordini.isEmpty()) { %>
                 <div class="order-card" style="text-align: center;">
                     <p>Non hai ancora effettuato nessun ordine.</p>
-                    <a href="catalogo.jsp" class="btn-primary" style="margin-top: 1rem; display: inline-block;">Inizia lo Shopping</a>
+                    <a href="${pageContext.request.contextPath}/Catalogo" class="btn-primary" style="margin-top: 1rem; display: inline-block;">Inizia lo Shopping</a>
                 </div>
             <% } else { 
                 for (Ordine ordine : ordini) {
@@ -111,7 +111,7 @@
         </section>
     </main>
 
-    <jsp:include page="fragments/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 
 </body>
 </html>

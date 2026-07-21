@@ -22,21 +22,27 @@ public class CatalogoServlet extends HttpServlet {
         // 1. Instanzio il DAO
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         
-        // 2. Recupero il parametro di ordinamento (se presente)
+        // 2. Recupero il parametro di ordinamento e di categoria (se presenti)
         String sort = request.getParameter("sort");
+        // Accetto sia "cat" (dalla homepage) che "category" (dalla navbar)
+        String categoria = request.getParameter("cat");
+        if (categoria == null) {
+            categoria = request.getParameter("category");
+        }
         
         // 3. Recupero l'utente loggato per la wishlist
         model.Utente utente = (model.Utente) request.getSession().getAttribute("utenteLoggato");
         int idUtente = (utente != null) ? utente.getId() : -1;
         
-        // 4. Recupero i prodotti ordinati
-        List<Prodotto> catalogo = prodottoDAO.doRetrieveAll(sort, idUtente);
+        // 4. Recupero i prodotti filtrati per categoria e ordinati
+        List<Prodotto> catalogo = prodottoDAO.doRetrieveAll(sort, idUtente, categoria);
         
-        // 3. Salvo la lista nella "request" per renderla disponibile alla JSP
+        // 5. Salvo la lista e il filtro nella request per la JSP
         request.setAttribute("prodotti", catalogo);
+        request.setAttribute("categoriaAttiva", categoria);
         
-        // 4. Faccio un forward alla pagina JSP del catalogo
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/catalogo.jsp");
+        // 6. Faccio un forward alla pagina JSP del catalogo
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/catalogo.jsp");
         dispatcher.forward(request, response);
     }
 

@@ -2,15 +2,15 @@
  * Retropia - Client-side Validation Script
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
 
     // =========================================================
     // FORM DI REGISTRAZIONE
     // =========================================================
-    const registrationForm = document.getElementById('registrationForm');
+    var registrationForm = document.getElementById('registrationForm');
 
     if (registrationForm) {
-        const fields = {
+        var fields = {
             nome: {
                 element: document.getElementById('nome'),
                 error: document.getElementById('nomeError'),
@@ -38,29 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Validate individual fields on input
-        Object.keys(fields).forEach(key => {
-            const field = fields[key];
+        Object.keys(fields).forEach(function(key) {
+            var field = fields[key];
             if (field.element) {
-                field.element.addEventListener('input', () => {
+                field.element.addEventListener('input', function() {
                     validateField(key, fields);
                 });
                 
                 // Also validate when leaving the field (blur)
-                field.element.addEventListener('blur', () => {
+                field.element.addEventListener('blur', function() {
                     validateField(key, fields);
                 });
             }
         });
 
         // Form submission handling
-        registrationForm.addEventListener('submit', (event) => {
+        registrationForm.addEventListener('submit', function(event) {
             // FERMIAMO SEMPRE L'INVIO DI DEFAULT per poter fare i controlli
             event.preventDefault(); 
             
-            let isFormValid = true;
+            var isFormValid = true;
 
             // Controlla tutti i campi (sincrono)
-            Object.keys(fields).forEach(key => {
+            Object.keys(fields).forEach(function(key) {
                 if (!validateField(key, fields)) {
                     isFormValid = false;
                 }
@@ -73,10 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Se tutto sembra valido, facciamo l'ultimo controllo sul server per l'email!
-            const emailValue = fields.email.element.value.trim();
+            var emailValue = fields.email.element.value.trim();
             fetch('CheckEmail?email=' + encodeURIComponent(emailValue))
-                .then(response => response.json())
-                .then(data => {
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
                     if (data.esiste) {
                         // L'email esiste già, sblocchiamo l'errore e NON inviamo
                         fields.email.element.style.borderColor = '#e74c3c'; // Rosso
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         registrationForm.submit();
                     }
                 })
-                .catch(error => {
+                .catch(function(error) {
                     console.error("Errore server:", error);
                     registrationForm.submit(); // Fallback in caso di server down
                 });
@@ -97,10 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     // FORM DI LOGIN
     // =========================================================
-    const loginForm = document.getElementById('loginForm');
+    var loginForm = document.getElementById('loginForm');
 
     if (loginForm) {
-        const loginFields = {
+        var loginFields = {
             email: {
                 element: document.getElementById('login-email'),
                 error: document.getElementById('loginEmailError'),
@@ -117,11 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Validazione live su blur
-        Object.keys(loginFields).forEach(key => {
-            const field = loginFields[key];
+        Object.keys(loginFields).forEach(function(key) {
+            var field = loginFields[key];
             if (field.element) {
-                field.element.addEventListener('blur', () => validateLoginField(key, loginFields));
-                field.element.addEventListener('input', () => {
+                field.element.addEventListener('blur', function() { validateLoginField(key, loginFields); });
+                field.element.addEventListener('input', function() {
                     // Rimuove l'errore mentre l'utente digita
                     if (field.element.value.trim().length > 0) {
                         field.element.style.borderColor = '#2ecc71';
@@ -131,10 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        loginForm.addEventListener('submit', (event) => {
+        loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            let isValid = true;
-            Object.keys(loginFields).forEach(key => {
+            var isValid = true;
+            Object.keys(loginFields).forEach(function(key) {
                 if (!validateLoginField(key, loginFields)) isValid = false;
             });
             if (isValid) loginForm.submit();
@@ -144,10 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     // FORM DI CHECKOUT
     // =========================================================
-    const checkoutForm = document.getElementById('checkoutForm');
+    var checkoutForm = document.getElementById('checkoutForm');
 
     if (checkoutForm) {
-        const checkoutFields = {
+        var checkoutFields = {
             via: {
                 element: document.getElementById('via'),
                 error: document.getElementById('viaError'),
@@ -172,11 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Validazione live su blur
-        Object.keys(checkoutFields).forEach(key => {
-            const field = checkoutFields[key];
+        Object.keys(checkoutFields).forEach(function(key) {
+            var field = checkoutFields[key];
             if (field.element) {
-                field.element.addEventListener('blur', () => validateCheckoutField(key, checkoutFields));
-                field.element.addEventListener('input', () => {
+                field.element.addEventListener('blur', function() { validateCheckoutField(key, checkoutFields); });
+                field.element.addEventListener('input', function() {
                     if (field.element.value.trim().length > 0) {
                         field.element.style.borderColor = '#2ecc71';
                         field.error.style.display = 'none';
@@ -185,10 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        checkoutForm.addEventListener('submit', (event) => {
+        checkoutForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            let isValid = true;
-            Object.keys(checkoutFields).forEach(key => {
+            var isValid = true;
+            Object.keys(checkoutFields).forEach(function(key) {
                 if (!validateCheckoutField(key, checkoutFields)) isValid = false;
             });
             if (isValid) checkoutForm.submit();
@@ -206,17 +206,20 @@ document.addEventListener('DOMContentLoaded', () => {
  * Validates a single field of the registration form and updates the UI
  */
 function validateField(key, fields) {
-    const field = fields[key];
-    const value = field.element.value.trim();
-    let isValid = true;
+    var field = fields[key];
+    var value = field.element.value.trim();
+    var isValid = true;
 
     if (key === 'confirmPassword') {
         // Special case: Password matching
-        const passwordValue = fields.password.element.value;
+        var passwordValue = fields.password.element.value;
         isValid = (value === passwordValue && value !== '');
+        if (!isValid) {
+            field.error.textContent = "Le password non coincidono.";
+        }
     } else if (key === 'password') {
         // Feedback dinamico specifico per la password
-        let messaggiErrore = [];
+        var messaggiErrore = [];
         if (value.length < 8) {
             messaggiErrore.push("Almeno 8 caratteri.");
         }
@@ -245,10 +248,10 @@ function validateField(key, fields) {
     // Aggiunta Logica AJAX per l'email (Controllo duplicati dal server)
     if (key === 'email' && isValid) {
         // L'email ha superato la regex, ora chiediamo al server se esiste già
-        // Usiamo la Fetch API (come da requisito della checklist)
+        // Usiamo la Fetch API
         fetch('CheckEmail?email=' + encodeURIComponent(value))
-            .then(response => response.json())
-            .then(data => {
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
                 if (data.esiste) {
                     field.element.style.borderColor = '#e74c3c'; // Rosso
                     field.error.textContent = "Questa email è già in uso!";
@@ -260,7 +263,7 @@ function validateField(key, fields) {
                     field.error.style.display = 'none';
                 }
             })
-            .catch(error => console.error("Errore AJAX controllo email:", error));
+            .catch(function(error) { console.error("Errore AJAX controllo email:", error); });
             
         // Siccome la fetch è asincrona, nel frattempo restituiamo lo stato corrente della regex
         return isValid; 
@@ -274,6 +277,8 @@ function validateField(key, fields) {
         field.element.style.borderColor = '#e74c3c'; // Red
         // Se è l'email che fallisce la regex, assicuro il messaggio originale
         if (key === 'email') field.error.textContent = "Formato email non valido.";
+        else if (key === 'nome') field.error.textContent = "Inserisci un nome valido.";
+        else if (key === 'cognome') field.error.textContent = "Inserisci un cognome valido.";
         field.error.style.display = 'block';
     }
 
@@ -284,9 +289,9 @@ function validateField(key, fields) {
  * Validates a single field of the login form
  */
 function validateLoginField(key, fields) {
-    const field = fields[key];
-    const value = field.element.value.trim();
-    let isValid = true;
+    var field = fields[key];
+    var value = field.element.value.trim();
+    var isValid = true;
 
     if (value.length === 0) {
         isValid = false;
@@ -310,9 +315,9 @@ function validateLoginField(key, fields) {
  * Validates a single field of the checkout form
  */
 function validateCheckoutField(key, fields) {
-    const field = fields[key];
-    const value = field.element.value.trim();
-    let isValid = true;
+    var field = fields[key];
+    var value = field.element.value.trim();
+    var isValid = true;
 
     if (value.length === 0) {
         isValid = false;
@@ -334,4 +339,3 @@ function validateCheckoutField(key, fields) {
     }
     return isValid;
 }
-

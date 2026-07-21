@@ -3,7 +3,7 @@
 <%
     Utente utente = (Utente) session.getAttribute("utenteLoggato");
     if (utente == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("LoginServlet");
         return;
     }
     String idOrdine = request.getParameter("idOrdine");
@@ -35,8 +35,8 @@
 </head>
 <body>
 
-    <jsp:include page="fragments/header.jsp" />
-    <jsp:include page="fragments/navbar.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/navbar.jsp" />
 
     <main>
         <section class="success-container">
@@ -57,12 +57,12 @@
                 <% if (idOrdine != null) { %>
                     <a href="Fattura?idOrdine=<%= idOrdine %>" class="btn-secondary" style="text-decoration: none;">🖨️ Scarica Fattura</a>
                 <% } %>
-                <a href="catalogo.jsp" class="btn-secondary" style="text-decoration: none;">Torna al Catalogo</a>
+                <a href="${pageContext.request.contextPath}/Catalogo" class="btn-secondary" style="text-decoration: none;">Torna al Catalogo</a>
             </div>
         </section>
     </main>
 
-    <jsp:include page="fragments/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 
 </body>
 </html>

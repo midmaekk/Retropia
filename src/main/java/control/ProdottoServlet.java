@@ -40,7 +40,7 @@ public class ProdottoServlet extends HttpServlet {
                     // Prodotto trovato, lo passiamo alla JSP
                     request.setAttribute("prodotto", p);
                     request.setAttribute("correlati", correlati);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("/prodotto.jsp");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/prodotto.jsp");
                     dispatcher.forward(request, response);
                     return;
                 }

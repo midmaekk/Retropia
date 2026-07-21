@@ -33,11 +33,11 @@ public class CheckoutServlet extends HttpServlet {
 
         // Controllo validità
         if (utente == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("LoginServlet");
             return;
         }
         if (carrello == null || carrello.getElementi().isEmpty()) {
-            response.sendRedirect("carrello.jsp");
+            response.sendRedirect("CarrelloServlet");
             return;
         }
 

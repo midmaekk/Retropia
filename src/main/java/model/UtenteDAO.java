@@ -18,7 +18,7 @@ public class UtenteDAO {
              PreparedStatement ps = con.prepareStatement(query)) {
             
             ps.setString(1, email);
-            ps.setString(2, password); // N.B. In futuro qui dovrai hashare la password in SHA-256
+            ps.setString(2, password); 
             
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

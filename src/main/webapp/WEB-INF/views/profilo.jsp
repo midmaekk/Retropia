@@ -3,7 +3,7 @@
 <%
     Utente utente = (Utente) session.getAttribute("utenteLoggato");
     if (utente == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
         return;
     }
     // Messaggi di feedback dalla servlet
@@ -186,8 +186,8 @@
 </head>
 <body>
 
-    <jsp:include page="fragments/header.jsp" />
-    <jsp:include page="fragments/navbar.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/navbar.jsp" />
 
     <main>
         <div class="profilo-wrapper">
@@ -297,7 +297,7 @@
         </div><!-- fine profilo-wrapper -->
     </main>
 
-    <jsp:include page="fragments/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 
     <script>
         // Validazione client-side: le due password devono coincidere

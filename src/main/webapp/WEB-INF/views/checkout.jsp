@@ -5,14 +5,14 @@
     Utente utente = (Utente) session.getAttribute("utenteLoggato");
     if (utente == null) {
         // L'utente deve essere loggato per fare il checkout
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("LoginServlet");
         return;
     }
     
     Carrello carrello = (Carrello) session.getAttribute("carrello");
     if (carrello == null || carrello.getElementi().isEmpty()) {
         // Se non ha niente nel carrello, torna indietro
-        response.sendRedirect("carrello.jsp");
+        response.sendRedirect("CarrelloServlet");
         return;
     }
 %>
@@ -28,8 +28,8 @@
 </head>
 <body>
 
-    <jsp:include page="fragments/header.jsp" />
-    <jsp:include page="fragments/navbar.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/navbar.jsp" />
 
     <main>
         <section class="auth-container" style="max-width: 800px; margin: 2rem auto;">
@@ -85,7 +85,7 @@
         </section>
     </main>
 
-    <jsp:include page="fragments/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 
 </body>
 </html>

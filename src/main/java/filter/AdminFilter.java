@@ -49,7 +49,7 @@ public class AdminFilter implements Filter {
         } else {
             // L'utente NON è autorizzato. Lo reindirizziamo alla pagina di errore 403 (Accesso Negato)
             // in alternativa si potrebbe mandare alla login.jsp
-            res.sendRedirect(req.getContextPath() + "/error403.jsp");
+            res.sendRedirect(req.getContextPath() + "/LoginServlet");
         }
     }
 

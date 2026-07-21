@@ -33,7 +33,9 @@
 .product-card img {
     width: 100%;
     height: 240px;
-    object-fit: cover;
+    object-fit: contain; /* Mostra l'immagine intera senza tagliarla */
+    mix-blend-mode: multiply; /* Fonde lo sfondo bianco dell'immagine con quello della card */
+    padding: 15px; /* Aggiunge un po' di spazio per far risaltare il prodotto */
     transition: transform 0.5s;
 }
 

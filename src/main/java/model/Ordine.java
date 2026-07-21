@@ -14,6 +14,7 @@ public class Ordine implements Serializable {
     private Timestamp dataOrdine;
     private BigDecimal totale;
     private String indirizzoSpedizione; // Es. "Via Roma 1, Milano 20100"
+    private String emailUtente; // Email del cliente che ha effettuato l'ordine
     private List<RigaOrdine> righe;
 
     public Ordine() {
@@ -74,6 +75,14 @@ public class Ordine implements Serializable {
 
     public void setIndirizzoSpedizione(String indirizzoSpedizione) {
         this.indirizzoSpedizione = indirizzoSpedizione;
+    }
+
+    public String getEmailUtente() {
+        return emailUtente;
+    }
+
+    public void setEmailUtente(String emailUtente) {
+        this.emailUtente = emailUtente;
     }
 
     public void addRiga(RigaOrdine riga) {

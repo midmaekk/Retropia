@@ -14,6 +14,11 @@ public class Prodotto implements Serializable {
     private int quantitaMagazzino;
     private String urlImmagine;
     
+    // Nuovi campi per CRUD
+    private boolean attivo = true;
+    private String condizione;
+    private int idCategoria;
+    
     // Campi per la Wishlist
     private int wishlistCount;
     private boolean inWishlist;
@@ -103,6 +108,30 @@ public class Prodotto implements Serializable {
 
     public void setInWishlist(boolean inWishlist) {
         this.inWishlist = inWishlist;
+    }
+
+    public boolean isAttivo() {
+        return attivo;
+    }
+
+    public void setAttivo(boolean attivo) {
+        this.attivo = attivo;
+    }
+
+    public String getCondizione() {
+        return condizione;
+    }
+
+    public void setCondizione(String condizione) {
+        this.condizione = condizione;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     @Override

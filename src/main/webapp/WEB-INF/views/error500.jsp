@@ -11,7 +11,7 @@
     <div class="error-container">
         <h1>500</h1>
         <p>Qualcosa è andato storto nei nostri server. Riprova più tardi.</p>
-        <a href="index.jsp">Torna alla Home</a>
+        <a href="${pageContext.request.contextPath}/Home">Torna alla Home</a>
     </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿package control;
+package control;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -29,11 +29,11 @@ public class ProfiloServlet extends HttpServlet {
         Utente utente = (session != null) ? (Utente) session.getAttribute("utenteLoggato") : null;
 
         if (utente == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/WEB-INF/views/login.jsp");
             return;
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/profilo.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/profilo.jsp");
         rd.forward(request, response);
     }
 
@@ -47,7 +47,7 @@ public class ProfiloServlet extends HttpServlet {
         Utente utente = (session != null) ? (Utente) session.getAttribute("utenteLoggato") : null;
 
         if (utente == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
 

@@ -18,7 +18,9 @@ public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        // Forward interno per mostrare la JSP nascosta in WEB-INF
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+        dispatcher.forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,14 +41,14 @@ public class LoginServlet extends HttpServlet {
             
             // Reindirizziamo in base al ruolo
             if (utente.isAdmin()) {
-                response.sendRedirect("admin/index.jsp"); // L'admin va nella dashboard (il filtro ora lo fa passare)
+                response.sendRedirect(request.getContextPath() + "/admin/dashboard"); // L'admin va nella dashboard (il filtro ora lo fa passare)
             } else {
-                response.sendRedirect("index.jsp"); // Il cliente va in Home
+                response.sendRedirect(request.getContextPath() + "/Home"); // Il cliente va in Home
             }
         } else {
             // Login fallito (email o password errati)
             request.setAttribute("erroreLogin", "Email o password errati.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
             dispatcher.forward(request, response);
         }
     }

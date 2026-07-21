@@ -24,12 +24,12 @@
 </head>
 <body>
 
-    <jsp:include page="fragments/header.jsp" />
-    <jsp:include page="fragments/navbar.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/navbar.jsp" />
 
     <main>
         <div class="breadcrumb">
-            <a href="index.jsp">Home</a> > <a href="catalogo.jsp">Catalogo</a> > <span>Dettaglio Prodotto</span>
+            <a href="${pageContext.request.contextPath}/Home">Home</a> > <a href="${pageContext.request.contextPath}/Catalogo">Catalogo</a> > <span>Dettaglio Prodotto</span>
         </div>
 
         <section class="product-detail">
@@ -120,7 +120,7 @@
                         </button>
                     </div>
                     <div style="display:flex; gap:10px; margin-top:10px;">
-                        <a href="prodotto.jsp?id=<%= pCorrelato.getId() %>" class="btn">Dettagli</a>
+                        <a href="${pageContext.request.contextPath}/DettaglioProdotto?id=<%= pCorrelato.getId() %>" class="btn">Dettagli</a>
                     </div>
                 </div>
                 <%      }
@@ -130,7 +130,7 @@
         </section>
     </main>
 
-    <jsp:include page="fragments/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 
 </body>
 </html>

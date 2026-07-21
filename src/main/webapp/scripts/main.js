@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             data.forEach(item => {
                                 const li = document.createElement('li');
                                 li.innerHTML = `
-                                    <a href="prodotto.jsp?id=${item.id}" class="suggestion-item">
+                                    <a href="DettaglioProdotto?id=${item.id}" class="suggestion-item">
                                         <img src="${item.immagine}" class="suggestion-img" alt="${item.nome}">
                                         <span class="suggestion-name">${item.nome}</span>
                                     </a>
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function showToast(message, type = 'info') {
     let container = document.getElementById('toast-container');
     if (!container) {
-        // Se il container non c'è, lo creiamo al volo (a prova di bomba!)
+        // Se il container non c'è, lo creiamo al volo
         container = document.createElement('div');
         container.id = 'toast-container';
         container.className = 'toast-container';
@@ -162,7 +162,7 @@ function toggleWishlist(idProdotto, btnElement) {
     })
     .then(response => {
         if (response.status === 401) {
-            // Utente non loggato: usiamo il Toast invece del brutto alert()!
+            // Utente non loggato: usiamo il Toast
             showToast("Per aggiungere un prodotto alla Wishlist devi prima accedere o registrarti.", "error");
             throw new Error('Non autorizzato');
         }

@@ -163,9 +163,10 @@ public class OrdineDAO {
      * Riservato all'area admin.
      */
     public Ordine doRetrieveByIdAdmin(int idOrdine) {
-        String query = "SELECT o.*, CONCAT(i.via, ', ', i.citta, ' ', i.cap) AS indirizzo_completo " +
+        String query = "SELECT o.*, CONCAT(i.via, ', ', i.citta, ' ', i.cap) AS indirizzo_completo, u.email " +
                        "FROM ordine o " +
                        "LEFT JOIN indirizzo i ON o.id_indirizzo = i.id_indirizzo " +
+                       "LEFT JOIN utente u ON o.id_utente = u.id_utente " +
                        "WHERE o.id_ordine = ?";
         try (Connection con = ConPool.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -178,6 +179,7 @@ public class OrdineDAO {
                     ordine.setTotale(rs.getBigDecimal("totale_ordine"));
                     ordine.setIdUtente(rs.getInt("id_utente"));
                     ordine.setIndirizzoSpedizione(rs.getString("indirizzo_completo"));
+                    ordine.setEmailUtente(rs.getString("email"));
                     ordine.setRighe(getRigheByOrdineId(ordine.getId(), con));
                     return ordine;
                 }
@@ -186,6 +188,59 @@ public class OrdineDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Recupera tutti gli ordini (con filtri dinamici opzionali) per l'Admin.
+     */
+    public List<Ordine> doRetrieveAllAdmin(String emailCliente, String dataDa, String dataA) {
+        List<Ordine> ordini = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT o.*, u.email FROM ordine o " +
+                                                "LEFT JOIN utente u ON o.id_utente = u.id_utente WHERE 1=1 ");
+        
+        if (emailCliente != null && !emailCliente.trim().isEmpty()) {
+            query.append("AND u.email LIKE ? ");
+        }
+        if (dataDa != null && !dataDa.trim().isEmpty()) {
+            query.append("AND DATE(o.data_ordine) >= ? ");
+        }
+        if (dataA != null && !dataA.trim().isEmpty()) {
+            query.append("AND DATE(o.data_ordine) <= ? ");
+        }
+        query.append("ORDER BY o.data_ordine DESC");
+        
+        try (Connection con = ConPool.getConnection();
+             PreparedStatement ps = con.prepareStatement(query.toString())) {
+             
+            int paramIndex = 1;
+            if (emailCliente != null && !emailCliente.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + emailCliente.trim() + "%");
+            }
+            if (dataDa != null && !dataDa.trim().isEmpty()) {
+                ps.setString(paramIndex++, dataDa.trim());
+            }
+            if (dataA != null && !dataA.trim().isEmpty()) {
+                ps.setString(paramIndex++, dataA.trim());
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Ordine ordine = new Ordine();
+                    ordine.setId(rs.getInt("id_ordine"));
+                    ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
+                    ordine.setTotale(rs.getBigDecimal("totale_ordine"));
+                    ordine.setIdUtente(rs.getInt("id_utente"));
+                    ordine.setEmailUtente(rs.getString("email"));
+                    
+                    // Nota: Non carichiamo le righe e l'indirizzo per la lista generale per questioni di prestazioni.
+                    // Verranno caricate solo nella vista di dettaglio tramite doRetrieveByIdAdmin.
+                    ordini.add(ordine);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ordini;
     }
 
     private List<RigaOrdine> getRigheByOrdineId(int idOrdine, Connection con) throws SQLException {

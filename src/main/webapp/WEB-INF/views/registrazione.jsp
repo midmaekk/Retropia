@@ -10,8 +10,8 @@
 </head>
 <body>
 
-    <jsp:include page="fragments/header.jsp" />
-    <jsp:include page="fragments/navbar.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/navbar.jsp" />
 
     <main class="auth-page">
         <section class="auth-container">
@@ -61,21 +61,14 @@
                 <button type="submit" class="btn-auth">Entra nel Team</button>
             </form>
 
-            <div class="social-auth">
-                <p>Oppure registrati con</p>
-                <div class="social-buttons">
-                    <button class="btn-social">Google</button>
-                    <button class="btn-social">Discord</button>
-                </div>
-            </div>
 
             <div class="auth-footer">
-                <p>Sei già un membro? <a href="login.jsp">Accedi qui</a></p>
+                <p>Sei già un membro? <a href="${pageContext.request.contextPath}/LoginServlet">Accedi qui</a></p>
             </div>
         </section>
     </main>
 
-    <jsp:include page="fragments/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 
 </body>
 </html>
