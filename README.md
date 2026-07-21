@@ -8,8 +8,7 @@ Il sito e' un e-commerce completo dedicato alla vendita di videogiochi, console 
 - **Linguaggio Base:** Java SE 11.0 (Standard Edition)
 - **Application Server:** Apache Tomcat 9.0.115
 - **Database:** MySQL Community Server 8.0.45 (con MySQL Connector/J 8.0.19)
-- **IDE Sviluppo:** Eclipse IDE for Enterprise Java Developers (2022-06)
-- **Frontend:** HTML5, CSS3, JavaScript (Vanilla), chiamate AJAX tramite Fetch API
+- **Frontend:** HTML5, CSS3, JavaScript, AJAX
 - **Pattern:** Model-View-Controller (MVC) con pattern DAO per l'accesso ai dati tramite Connection Pool (DataSource).
 
 ## Struttura del Database (Tabelle e Chiavi Primarie)
