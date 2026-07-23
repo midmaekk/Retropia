@@ -52,4 +52,4 @@ INSERT INTO `utente_registrato` (`id_utente`, `password_hash`, `punti_fedelta`, 
 (3, '02a3a5f4f8cb6cb41efd4a229b49bcfbc537e29c8e8869b2d6a54f85e49f2b84', 50, 0);
 
 INSERT INTO `utente_admin` (`id_utente`, `livello_accesso`) VALUES 
-(1, 'SuperAdmin');
+(1, 'Admin');

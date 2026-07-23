@@ -1,0 +1,253 @@
+/* ===================================================
+   STILI A SCHERMO FATTURA (visualizzazione normale nel browser)
+   =================================================== */
+.fattura-page-wrapper {
+    max-width: 860px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.fattura-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: flex-end;
+}
+
+.fattura-document {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 3rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Intestazione fattura */
+.fattura-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 3px solid var(--primary-color, #e74c3c);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.fattura-brand h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-color, #e74c3c);
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.fattura-brand p {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0.2rem 0 0;
+}
+
+.fattura-meta {
+    text-align: right;
+}
+
+.fattura-meta h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 0.5rem;
+}
+
+.fattura-meta p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0.1rem 0;
+}
+
+.fattura-numero {
+    display: inline-block;
+    background-color: var(--primary-color, #e74c3c);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Sezione dati cliente, spedizione e pagamento */
+.fattura-parties {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.fattura-party h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+}
+
+.fattura-party p {
+    font-size: 0.95rem;
+    color: #333;
+    margin: 0.15rem 0;
+}
+
+.fattura-party p strong {
+    font-weight: 700;
+}
+
+/* Tabella prodotti */
+.fattura-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 0.92rem;
+}
+
+.fattura-table thead tr {
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #ddd;
+}
+
+.fattura-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.fattura-table th:last-child,
+.fattura-table td:last-child {
+    text-align: right;
+}
+
+.fattura-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.fattura-table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+/* Riepilogo totali */
+.fattura-totals {
+    margin-left: auto;
+    width: 300px;
+}
+
+.fattura-totals table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.fattura-totals td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.93rem;
+    color: #444;
+}
+
+.fattura-totals td:last-child {
+    text-align: right;
+    font-weight: 500;
+}
+
+.fattura-totals .total-row {
+    border-top: 2px solid var(--primary-color, #e74c3c);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111;
+}
+
+.fattura-totals .total-row td {
+    padding-top: 0.75rem;
+}
+
+/* Footer legale della fattura */
+.fattura-footer-legal {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+    font-size: 0.78rem;
+    color: #999;
+    text-align: center;
+}
+
+/* ===================================================
+   @media print — Ottimizzazione per la stampa / PDF
+   =================================================== */
+@media print {
+    /* Nasconde tutti gli elementi dell'interfaccia del sito */
+    header,
+    nav,
+    footer,
+    .fattura-actions,
+    .navbar,
+    .site-header {
+        display: none !important;
+    }
+
+    /* Sfondo bianco, testo nero per risparmio inchiostro */
+    body {
+        background: white !important;
+        color: black !important;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    /* Il documento fattura occupa tutta la pagina */
+    .fattura-page-wrapper {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .fattura-document {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 1cm;
+    }
+
+    /* Evita interruzioni di pagina nel mezzo della tabella */
+    .fattura-table {
+        page-break-inside: avoid;
+    }
+
+    .fattura-table tr {
+        page-break-inside: avoid;
+    }
+
+    /* Colore brand adattato alla stampa */
+    .fattura-brand h2,
+    .fattura-numero {
+        color: #000 !important;
+    }
+
+    .fattura-numero {
+        background: #000 !important;
+        color: #fff !important;
+    }
+
+    .fattura-header {
+        border-bottom-color: #000 !important;
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+
+    /* Definizione pagina A4 con margini adeguati */
+    @page {
+        size: A4 portrait;
+        margin: 1cm 1.5cm;
+    }
+}
