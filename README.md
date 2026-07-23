@@ -29,7 +29,6 @@ Il database `ecommerce_db` e' strutturato per garantire integrita' referenziale.
 - `indirizzo` (PK: id_indirizzo) - Indirizzi di spedizione inseriti in fase di checkout.
 - `fattura` (PK: id_fattura) - Riferimenti per la fatturazione (visivamente formattata con media print in CSS).
 - `wishlist` (PK composta: id_utente, id_prodotto) - Lista dei desideri asincrona gestita via AJAX.
-- Tabelle secondarie/espansioni: `pagamento` (PK: id_pagamento).
 
 ## Installazione e Avvio
 
