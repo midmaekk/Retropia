@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Utente" %>
 <%@ page import="model.Carrello" %>
 <%
@@ -36,7 +36,7 @@
             <h1>Checkout</h1>
             <p>Completa il tuo ordine inserendo l'indirizzo di spedizione.</p>
 
-            <form action="CheckoutServlet" method="POST" class="auth-form" style="margin-top: 1rem;" id="checkoutForm">
+            <form action="${pageContext.request.contextPath}/CheckoutServlet" method="POST" class="auth-form" style="margin-top: 1rem;" id="checkoutForm">
                 <fieldset style="border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem; border-radius: 8px;">
                     <legend style="padding: 0 10px; font-weight: bold; color: var(--primary-color);">Dati di Spedizione</legend>
                     

@@ -1,9 +1,9 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Utente" %>
 <%
     Utente utente = (Utente) session.getAttribute("utenteLoggato");
     if (utente == null) {
-        response.sendRedirect("LoginServlet");
+        response.sendRedirect(request.getContextPath() + "/LoginServlet");
         return;
     }
     String idOrdine = request.getParameter("idOrdine");

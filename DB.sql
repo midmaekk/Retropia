@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `ecommerce_db`.`ordine` (
   `data_ordine` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `stato_ordine` VARCHAR(50) NOT NULL DEFAULT 'In elaborazione',
   `totale_ordine` DECIMAL(10,2) NOT NULL,
+  `metodo_pagamento` VARCHAR(50) NOT NULL DEFAULT 'Carta di Credito',
   `id_utente` INT NOT NULL,
   `id_indirizzo` INT NOT NULL,
   PRIMARY KEY (`id_ordine`),
@@ -200,31 +201,6 @@ AUTO_INCREMENT = 13
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
-DROP TABLE IF EXISTS `ecommerce_db`.`pagamento` ;
-
-CREATE TABLE IF NOT EXISTS `ecommerce_db`.`pagamento` (
-  `id_pagamento` INT NOT NULL AUTO_INCREMENT,
-  `metodo` VARCHAR(50) NOT NULL,
-  `importo` DECIMAL(10,2) NOT NULL,
-  `giorno` DATE NOT NULL,
-  `orario` TIME NOT NULL,
-  `id_ordine` INT NOT NULL,
-  `id_utente` INT NOT NULL,
-  PRIMARY KEY (`id_pagamento`),
-  UNIQUE INDEX `id_ordine` (`id_ordine` ASC) VISIBLE,
-  INDEX `id_utente` (`id_utente` ASC) VISIBLE,
-  CONSTRAINT `pagamento_ibfk_1`
-    FOREIGN KEY (`id_ordine`)
-    REFERENCES `ecommerce_db`.`ordine` (`id_ordine`)
-    ON DELETE RESTRICT,
-  CONSTRAINT `pagamento_ibfk_2`
-    FOREIGN KEY (`id_utente`)
-    REFERENCES `ecommerce_db`.`utente` (`id_utente`)
-    ON DELETE RESTRICT)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 

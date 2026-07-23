@@ -15,6 +15,7 @@ public class Ordine implements Serializable {
     private BigDecimal totale;
     private String indirizzoSpedizione; // Es. "Via Roma 1, Milano 20100"
     private String emailUtente; // Email del cliente che ha effettuato l'ordine
+    private String metodoPagamento; // Es. "Carta di Credito", "PayPal", "Bonifico Bancario"
     private List<RigaOrdine> righe;
 
     public Ordine() {
@@ -83,6 +84,14 @@ public class Ordine implements Serializable {
 
     public void setEmailUtente(String emailUtente) {
         this.emailUtente = emailUtente;
+    }
+
+    public String getMetodoPagamento() {
+        return metodoPagamento;
+    }
+
+    public void setMetodoPagamento(String metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
     }
 
     public void addRiga(RigaOrdine riga) {

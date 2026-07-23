@@ -53,6 +53,7 @@
                 <h3>Informazioni Generali</h3>
                 <p><strong>Data Registrazione:</strong> <%= sdf.format(ordine.getDataOrdine()) %></p>
                 <p><strong>Totale Pagato:</strong> &euro; <%= ordine.getTotale() %></p>
+                <p><strong>Metodo di Pagamento:</strong> <%= ordine.getMetodoPagamento() != null ? ordine.getMetodoPagamento() : "Carta di Credito" %></p>
                 <p><strong>Stato Pagamento:</strong> <span style="color: green; font-weight: bold;">Confermato</span></p>
             </div>
             <div class="details-card">

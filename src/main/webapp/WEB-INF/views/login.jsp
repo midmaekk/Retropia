@@ -39,11 +39,7 @@
                     <input type="password" id="login-password" name="password" placeholder="••••••••" required>
                     <span id="loginPasswordError" class="error-msg" style="color: #e74c3c; font-size: 0.85rem; display: none; margin-top: 5px;"></span>
                 </div>
-                
-                <div class="auth-options">
-                    <label><input type="checkbox"> Ricordami</label>
-                    <a href="#">Password dimenticata?</a>
-                </div>
+  
                 
                 <button type="submit" class="btn-auth">Accedi al Team</button>
             </form>

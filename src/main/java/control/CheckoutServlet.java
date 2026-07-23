@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +24,35 @@ public class CheckoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("checkout.jsp");
+        HttpSession session = request.getSession();
+        Utente utente = (Utente) session.getAttribute("utenteLoggato");
+        
+        String action = request.getParameter("action");
+        if ("conferma".equalsIgnoreCase(action)) {
+            if (utente == null) {
+                response.sendRedirect(request.getContextPath() + "/LoginServlet");
+                return;
+            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/conferma_ordine.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        // Controllo autenticazione per accedere al checkout
+        if (utente == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
+
+        Carrello carrello = (Carrello) session.getAttribute("carrello");
+        if (carrello == null || carrello.getElementi().isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
+            return;
+        }
+
+        // Inoltro alla pagina di checkout protetta in WEB-INF/views/
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/checkout.jsp");
+        dispatcher.forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,11 +62,11 @@ public class CheckoutServlet extends HttpServlet {
 
         // Controllo validità
         if (utente == null) {
-            response.sendRedirect("LoginServlet");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
         if (carrello == null || carrello.getElementi().isEmpty()) {
-            response.sendRedirect("CarrelloServlet");
+            response.sendRedirect(request.getContextPath() + "/CarrelloServlet");
             return;
         }
 
@@ -62,19 +91,30 @@ public class CheckoutServlet extends HttpServlet {
         }
 
         // 2. Costruisco l'ordine in memoria
+        String metodoParam = request.getParameter("pagamento");
+        String metodoPagamento = "Carta di Credito";
+        if ("paypal".equalsIgnoreCase(metodoParam)) {
+            metodoPagamento = "PayPal";
+        } else if ("bonifico".equalsIgnoreCase(metodoParam)) {
+            metodoPagamento = "Bonifico Bancario";
+        } else if ("carta".equalsIgnoreCase(metodoParam)) {
+            metodoPagamento = "Carta di Credito / Debito";
+        } else if (metodoParam != null && !metodoParam.trim().isEmpty()) {
+            metodoPagamento = metodoParam.trim();
+        }
+
         Ordine ordine = new Ordine();
         ordine.setIdUtente(utente.getId());
-        ordine.setTotale(carrello.getPrezzoTotale()); // Il totale è già pre-calcolato dal carrello
+        ordine.setTotale(carrello.getPrezzoTotale());
+        ordine.setMetodoPagamento(metodoPagamento);
 
         // 3. Converto gli articoli del carrello in Righe Ordine (congelando prezzo e IVA)
         for (CartItem item : carrello.getElementi()) {
             RigaOrdine riga = new RigaOrdine();
             riga.setIdProdotto(item.getProdotto().getId());
             riga.setQuantita(item.getQuantita());
-            
-            // I prezzi a schermo includono già l'IVA, ma noi la salviamo esplicitamente come aliquota 22
             riga.setPrezzoAcquisto(item.getProdotto().getPrezzo()); 
-            riga.setIvaAcquisto(new BigDecimal("22.00")); // IVA al 22% fissa (da scorporare commercialmente, ma noi la memorizziamo a fini storici)
+            riga.setIvaAcquisto(new BigDecimal("22.00"));
             
             ordine.addRiga(riga);
         }
@@ -86,8 +126,8 @@ public class CheckoutServlet extends HttpServlet {
         if (success) {
             // Svuoto il carrello
             carrello.svuota();
-            // Reindirizzo alla pagina di conferma passando l'ID dell'ordine (come parametro get o in sessione)
-            response.sendRedirect("conferma_ordine.jsp?idOrdine=" + ordine.getId());
+            // Reindirizzo alla Servlet per mostrare la conferma dell'ordine
+            response.sendRedirect(request.getContextPath() + "/CheckoutServlet?action=conferma&idOrdine=" + ordine.getId());
         } else {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore nel salvataggio dell'ordine");
         }

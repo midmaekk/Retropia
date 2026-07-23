@@ -15,7 +15,7 @@ public class OrdineDAO {
      * Inserisce prima in 'ordine' e poi in 'dettagli_ordine' per ogni riga.
      */
     public boolean doSave(Ordine ordine, int idIndirizzo) {
-        String queryOrdine = "INSERT INTO ordine (totale_ordine, id_utente, id_indirizzo) VALUES (?, ?, ?)";
+        String queryOrdine = "INSERT INTO ordine (totale_ordine, id_utente, id_indirizzo, metodo_pagamento) VALUES (?, ?, ?, ?)";
         String queryDettagli = "INSERT INTO dettagli_ordine (quantita, prezzo_vendita, iva_applicata, id_ordine, id_prodotto) VALUES (?, ?, ?, ?, ?)";
         String queryStock = "UPDATE prodotto SET quantita_stock = quantita_stock - ? WHERE id_prodotto = ?";
         
@@ -31,6 +31,7 @@ public class OrdineDAO {
                 psOrdine.setBigDecimal(1, ordine.getTotale());
                 psOrdine.setInt(2, ordine.getIdUtente());
                 psOrdine.setInt(3, idIndirizzo);
+                psOrdine.setString(4, ordine.getMetodoPagamento() != null ? ordine.getMetodoPagamento() : "Carta di Credito");
                 
                 psOrdine.executeUpdate();
                 
@@ -113,6 +114,7 @@ public class OrdineDAO {
                     ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
                     ordine.setTotale(rs.getBigDecimal("totale_ordine"));
                     ordine.setIdUtente(rs.getInt("id_utente"));
+                    ordine.setMetodoPagamento(rs.getString("metodo_pagamento"));
                     
                     // Recuperiamo anche i dettagli (le righe)
                     ordine.setRighe(getRigheByOrdineId(ordine.getId(), con));
@@ -148,6 +150,7 @@ public class OrdineDAO {
                     ordine.setTotale(rs.getBigDecimal("totale_ordine"));
                     ordine.setIdUtente(rs.getInt("id_utente"));
                     ordine.setIndirizzoSpedizione(rs.getString("indirizzo_completo"));
+                    ordine.setMetodoPagamento(rs.getString("metodo_pagamento"));
                     ordine.setRighe(getRigheByOrdineId(ordine.getId(), con));
                     return ordine;
                 }
@@ -180,6 +183,7 @@ public class OrdineDAO {
                     ordine.setIdUtente(rs.getInt("id_utente"));
                     ordine.setIndirizzoSpedizione(rs.getString("indirizzo_completo"));
                     ordine.setEmailUtente(rs.getString("email"));
+                    ordine.setMetodoPagamento(rs.getString("metodo_pagamento"));
                     ordine.setRighe(getRigheByOrdineId(ordine.getId(), con));
                     return ordine;
                 }
@@ -231,6 +235,7 @@ public class OrdineDAO {
                     ordine.setTotale(rs.getBigDecimal("totale_ordine"));
                     ordine.setIdUtente(rs.getInt("id_utente"));
                     ordine.setEmailUtente(rs.getString("email"));
+                    ordine.setMetodoPagamento(rs.getString("metodo_pagamento"));
                     
                     // Nota: Non carichiamo le righe e l'indirizzo per la lista generale per questioni di prestazioni.
                     // Verranno caricate solo nella vista di dettaglio tramite doRetrieveByIdAdmin.
