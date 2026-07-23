@@ -214,3 +214,41 @@
     text-decoration: none;
     font-weight: 800;
 }
+
+/* ==========================================================================
+   RESPONSIVE — Mobile (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .auth-page {
+        padding: 20px 15px;
+        align-items: flex-start;
+    }
+
+    .auth-container {
+        padding: 30px 20px;
+        margin: 10px 0;
+        border-radius: 16px;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile piccolo (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 25px 15px;
+    }
+
+    /* Impila "Ricordami" e "Password dimenticata" su mobile piccolo */
+    .auth-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .social-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+

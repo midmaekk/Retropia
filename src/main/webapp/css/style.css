@@ -5,22 +5,22 @@
    ========================================================================== */
 
 /* 1. Base (Variabili, Reset, Impostazioni globali) */
-@import url('base/reset.css?v=4');
-@import url('base/buttons.css?v=4');
+@import url('base/reset.css?v=7');
+@import url('base/buttons.css?v=7');
 
 /* 2. Componenti (Stili riutilizzabili in più pagine) */
-@import url('components/product-card.css?v=4');
-@import url('components/breadcrumbs.css?v=4');
-@import url('components/toast.css?v=4');
+@import url('components/product-card.css?v=7');
+@import url('components/breadcrumbs.css?v=7');
+@import url('components/toast.css?v=7');
 
 /* 3. Layout (Elementi strutturali come Header e Footer) */
-@import url('layout/header.css?v=4');
-@import url('layout/footer.css?v=4');
+@import url('layout/header.css?v=7');
+@import url('layout/footer.css?v=7');
 
 /* 4. Pagine (Stili specifici per ogni pagina) */
-@import url('pages/home.css?v=4');
-@import url('pages/catalog.css?v=4');
-@import url('pages/product-detail.css?v=4');
-@import url('pages/cart.css?v=4');
-@import url('pages/auth.css?v=4');
-@import url('pages/fattura.css?v=4');
+@import url('pages/home.css?v=7');
+@import url('pages/catalog.css?v=7');
+@import url('pages/product-detail.css?v=7');
+@import url('pages/cart.css?v=7');
+@import url('pages/auth.css?v=7');
+@import url('pages/fattura.css?v=7');

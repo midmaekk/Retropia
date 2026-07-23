@@ -183,6 +183,71 @@
 }
 
 /* ===================================================
+   @media screen — Visualizzazione mobile della fattura
+   =================================================== */
+@media screen and (max-width: 768px) {
+    .fattura-page-wrapper {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+
+    .fattura-document {
+        padding: 1.2rem;
+        border-radius: 6px;
+    }
+
+    /* Header fattura: brand e meta in colonna su mobile */
+    .fattura-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .fattura-meta {
+        text-align: left;
+    }
+
+    /* Dati parti: 3 colonne → 1 colonna su mobile */
+    .fattura-parties {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Totali: larghezza piena su mobile */
+    .fattura-totals {
+        width: 100%;
+    }
+
+    /* Bottoni azioni: allineati a sinistra su mobile */
+    .fattura-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    /* Tabella: scroll orizzontale su mobile se necessario */
+    .fattura-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .fattura-table {
+        min-width: 480px;
+        font-size: 0.82rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .fattura-document {
+        padding: 1rem 0.75rem;
+    }
+
+    .fattura-brand h2 {
+        font-size: 1.5rem;
+    }
+}
+
+
+
+/* ===================================================
    @media print — Ottimizzazione per la stampa / PDF
    =================================================== */
 @media print {

@@ -16,6 +16,13 @@
     --success: #27ae60;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     --shadow-hover: 0 10px 30px rgba(238, 21, 21, 0.15);
+
+    /* Token di design di utilità */
+    --transition-fast: all 0.2s ease;
+    --transition-normal: all 0.3s ease;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
 }
 
 /* Reset dei margini e padding predefiniti dei browser */
@@ -44,3 +51,17 @@ main {
     margin: 0 auto;
     width: 100%;
 }
+
+/* Responsive padding per main */
+@media (max-width: 768px) {
+    main {
+        padding: 24px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 16px 10px;
+    }
+}
+

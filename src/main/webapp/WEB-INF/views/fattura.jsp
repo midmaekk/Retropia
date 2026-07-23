@@ -99,6 +99,7 @@
             </div>
 
             <!-- Tabella prodotti -->
+            <div class="fattura-table-wrapper">
             <table class="fattura-table">
                 <thead>
                     <tr>
@@ -121,6 +122,7 @@
                     <% } %>
                 </tbody>
             </table>
+            </div>
 
             <!-- Riepilogo totali -->
             <div class="fattura-totals">

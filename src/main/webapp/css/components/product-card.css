@@ -88,9 +88,10 @@
     right: 25px;
     background: rgba(255, 255, 255, 0.9);
     border: none;
-    border-radius: 50%;
-    width: 45px;
+    border-radius: 20px;
+    width: auto;
     height: 45px;
+    padding: 0 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,14 +102,6 @@
     font-size: 1.2rem;
     color: #ccc;
     gap: 4px;
-    padding: 0;
-}
-
-/* Espande il bottone per far vedere il numero al passaggio del mouse o se è rosso */
-.wishlist-btn {
-    width: auto;
-    padding: 0 12px;
-    border-radius: 20px;
 }
 
 .wishlist-btn:hover {
@@ -125,3 +118,38 @@
     font-weight: bold;
     color: var(--secondary-color);
 }
+
+/* ==========================================================================
+   RESPONSIVE — Mobile (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .product-grid {
+        gap: 20px;
+        /* Dimensione minima ridotta per adattarsi meglio a schermi più stretti */
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .product-card img {
+        height: 200px;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile piccolo (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .product-grid {
+        gap: 15px;
+        /* 2 colonne strette su mobile piccolo */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .product-card img {
+        height: 160px;
+    }
+
+    .product-card {
+        border-radius: 12px;
+    }
+}
+

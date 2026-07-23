@@ -100,6 +100,67 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // =========================================================
+    // HAMBURGER MENU — Toggle navbar mobile
+    // =========================================================
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navbar = document.querySelector('.navbar');
+
+    if (hamburgerBtn && navbar) {
+        hamburgerBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = navbar.classList.toggle('is-open');
+            hamburgerBtn.classList.toggle('is-open', isOpen);
+            hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Chiudi il menu se si clicca fuori
+        document.addEventListener('click', function(e) {
+            if (!navbar.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                navbar.classList.remove('is-open');
+                hamburgerBtn.classList.remove('is-open');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Chiudi il menu alla pressione di Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navbar.classList.contains('is-open')) {
+                navbar.classList.remove('is-open');
+                hamburgerBtn.classList.remove('is-open');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                hamburgerBtn.focus();
+            }
+        });
+    }
+
+    // =========================================================
+    // SEARCH TOGGLE — Apri/chiudi search bar su mobile
+    // =========================================================
+    const searchToggleBtn = document.getElementById('searchToggleBtn');
+    const searchBar = document.getElementById('searchBar');
+
+    if (searchToggleBtn && searchBar) {
+        searchToggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = searchBar.classList.toggle('is-open');
+            searchToggleBtn.setAttribute('aria-label', isOpen ? 'Chiudi ricerca' : 'Apri ricerca');
+            // Se si apre, porta subito il focus sull'input
+            if (isOpen) {
+                const input = searchBar.querySelector('input');
+                if (input) input.focus();
+            }
+        });
+
+        // Chiudi la search bar se si clicca fuori
+        document.addEventListener('click', function(e) {
+            if (!searchBar.contains(e.target) && !searchToggleBtn.contains(e.target)) {
+                searchBar.classList.remove('is-open');
+                searchToggleBtn.setAttribute('aria-label', 'Apri ricerca');
+            }
+        });
+    }
 });
 
 // Funzione per mostrare le notifiche Toast

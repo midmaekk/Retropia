@@ -185,15 +185,19 @@ footer {
 
 /* Responsività per il footer */
 @media (max-width: 992px) {
+    /* FIX: .footer-content è display:flex (non grid), quindi usiamo flex-wrap + gap ridotto */
     .footer-content {
-        grid-template-columns: 1fr 1fr;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: flex-start;
     }
 }
 
 @media (max-width: 768px) {
     .footer-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
         text-align: center;
     }
 

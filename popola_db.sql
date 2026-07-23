@@ -46,10 +46,10 @@ INSERT INTO `utente` (`id_utente`, `nome`, `cognome`, `email`, `tipo_utente`) VA
 (2, 'Mario', 'Rossi', 'mario.rossi@email.it', 'registrato'),
 (3, 'Luigi', 'Verdi', 'luigi.verdi@email.it', 'registrato');
 
-INSERT INTO `utente_registrato` (`id_utente`, `password_hash`, `punti_fedelta`, `newsletter`) VALUES
-(1, '02a3a5f4f8cb6cb41efd4a229b49bcfbc537e29c8e8869b2d6a54f85e49f2b84', 0, 1),
-(2, '02a3a5f4f8cb6cb41efd4a229b49bcfbc537e29c8e8869b2d6a54f85e49f2b84', 100, 1),
-(3, '02a3a5f4f8cb6cb41efd4a229b49bcfbc537e29c8e8869b2d6a54f85e49f2b84', 50, 0);
+INSERT INTO `utente_registrato` (`id_utente`, `password_hash`, `newsletter`) VALUES
+(1, '3eb3fe66b31e3b4d10fa70b5cad49c7112294af6ae4e476a1c405155d45aa121', 1),
+(2, '3eb3fe66b31e3b4d10fa70b5cad49c7112294af6ae4e476a1c405155d45aa121', 1),
+(3, '3eb3fe66b31e3b4d10fa70b5cad49c7112294af6ae4e476a1c405155d45aa121', 0);
 
 INSERT INTO `utente_admin` (`id_utente`, `livello_accesso`) VALUES 
 (1, 'Admin');

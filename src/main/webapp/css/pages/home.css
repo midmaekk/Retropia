@@ -143,3 +143,105 @@
 .info-box.loyalty .info-content p {
     color: #BBB;
 }
+
+/* ==========================================================================
+   RESPONSIVE — Tablet (max-width: 992px)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .hero {
+        padding: 70px 30px;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .info-box {
+        padding: 35px;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .hero {
+        padding: 55px 20px;
+        margin-bottom: 40px;
+        border-radius: 16px;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+        letter-spacing: -1px;
+        margin-bottom: 15px;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    /* Bottoni hero impilati verticalmente su mobile */
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .hero-actions a,
+    .hero-actions button {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+
+    /* Info boxes: colonna singola su mobile */
+    .home-grid-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .info-box {
+        padding: 30px 25px;
+    }
+
+    .info-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .home-section {
+        margin-bottom: 50px;
+    }
+
+    .home-section h2 {
+        font-size: 1.7rem;
+        letter-spacing: 1px;
+        margin-bottom: 25px;
+    }
+
+    .category-card {
+        padding: 25px 15px;
+    }
+
+    .category-icon {
+        font-size: 2.2rem;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile piccolo (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .hero {
+        padding: 40px 15px;
+    }
+}
+

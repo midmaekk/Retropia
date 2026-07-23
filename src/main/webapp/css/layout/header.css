@@ -75,7 +75,7 @@ header {
 }
 
 /* Link area utente e carrello */
-.user-actions a {
+.user-actions > a {
     color: var(--white);
     text-decoration: none;
     margin-left: 25px;
@@ -85,7 +85,7 @@ header {
     text-transform: uppercase;
 }
 
-.user-actions a:hover {
+.user-actions > a:hover {
     color: var(--primary-color);
 }
 
@@ -276,23 +276,23 @@ header {
     align-items: center;
     gap: 10px;
     padding: 11px 16px;
-    color: #333 !important;
-    text-decoration: none !important;
+    color: #333;
+    text-decoration: none;
     font-size: 0.88rem;
     font-weight: 500;
-    text-transform: none !important;
-    letter-spacing: 0 !important;
-    margin-left: 0 !important;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: 0;
     transition: background 0.15s;
 }
 
 .dropdown-item:hover {
     background: #f5f5f5;
-    color: #111 !important;
+    color: #111;
 }
 
 .dropdown-item:hover::after {
-    display: none !important; /* Disabilita l'underline animato della navbar */
+    display: none; /* Disabilita l'underline animato della navbar */
 }
 
 .dropdown-icon {
@@ -304,12 +304,12 @@ header {
 
 /* Voce Esci — colore rosso */
 .dropdown-item--danger {
-    color: var(--primary-color) !important;
+    color: var(--primary-color);
 }
 
 .dropdown-item--danger:hover {
     background: #fff0f0;
-    color: var(--primary-dark) !important;
+    color: var(--primary-dark);
 }
 
 /* ==========================================================================
@@ -398,3 +398,202 @@ header {
     color: #777;
     font-size: 0.9rem;
 }
+
+/* ==========================================================================
+   HAMBURGER BUTTON — solo mobile (nascosto su desktop)
+   ========================================================================== */
+.hamburger-btn {
+    display: none; /* nascosto su desktop */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
+
+.hamburger-line {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--white);
+    border-radius: 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+}
+
+/* Animazione ☰ → ✕ quando hamburger è aperto */
+.hamburger-btn.is-open .hamburger-line:nth-child(1) {
+    transform: translateY(9.5px) rotate(45deg);
+}
+
+.hamburger-btn.is-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger-btn.is-open .hamburger-line:nth-child(3) {
+    transform: translateY(-9.5px) rotate(-45deg);
+}
+
+/* Bottone toggle ricerca — solo mobile (nascosto su desktop) */
+.search-toggle-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.search-toggle-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* ==========================================================================
+   RESPONSIVE — Tablet (max-width: 992px)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .search-bar {
+        flex: 0 0 35%;
+    }
+
+    .logo h1 {
+        font-size: 1.6rem;
+    }
+
+    .navbar li {
+        margin: 0 15px;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* Header layout: logo a sinistra, hamburger a destra */
+    .header-content {
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 0 15px;
+    }
+
+    .logo {
+        order: 1;
+        flex: 1;
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    /* user-actions: solo hamburgher + carrello + avatar visibili */
+    .user-actions {
+        order: 2;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+    }
+
+    /* Search bar: occupa tutta la seconda riga, nascosta di default */
+    .search-bar {
+        order: 3;
+        flex: 0 0 100%;
+        width: 100%;
+        display: none;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    /* Visibile solo quando JavaScript aggiunge la classe .is-open */
+    .search-bar.is-open {
+        display: flex;
+    }
+
+    /* Mostra il bottone hamburger su mobile */
+    .hamburger-btn {
+        display: flex;
+    }
+
+    /* Mostra il bottone search toggle su mobile */
+    .search-toggle-btn {
+        display: block;
+    }
+
+    /* Nascondi il link testuale "Login" e "Admin" su mobile stretto */
+    .user-actions > a:not(.cart-link):not(.admin-badge) {
+        display: none;
+    }
+
+    /* Navbar mobile: colonna verticale, nascosta di default */
+    .navbar {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.35s ease, padding 0.35s ease;
+        padding: 0;
+    }
+
+    /* Navbar aperta via hamburger */
+    .navbar.is-open {
+        max-height: 300px;
+        padding: 10px 0;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 20px;
+        gap: 0;
+    }
+
+    .navbar li {
+        margin: 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .navbar a {
+        display: block;
+        padding: 14px 0;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+
+    .navbar a::after {
+        display: none;
+    }
+
+    /* Dropdown utente: assicura che non esca dallo schermo */
+    .user-dropdown-menu {
+        right: 0;
+        left: auto;
+        min-width: 200px;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile piccolo (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+    header {
+        padding: 1rem 0;
+    }
+
+    .logo h1 {
+        font-size: 1.3rem;
+    }
+
+    .cart-link span:not(.cart-badge):not(.cart-icon) {
+        display: none; /* Nasconde il testo "Carrello", mostra solo l'icona */
+    }
+}
+

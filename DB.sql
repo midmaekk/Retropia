@@ -226,7 +226,6 @@ DROP TABLE IF EXISTS `ecommerce_db`.`utente_registrato` ;
 CREATE TABLE IF NOT EXISTS `ecommerce_db`.`utente_registrato` (
   `id_utente` INT NOT NULL,
   `password_hash` VARCHAR(255) NOT NULL,
-  `punti_fedelta` INT NULL DEFAULT '0',
   `newsletter` TINYINT(1) NULL DEFAULT '0',
   PRIMARY KEY (`id_utente`),
   CONSTRAINT `utente_registrato_ibfk_1`

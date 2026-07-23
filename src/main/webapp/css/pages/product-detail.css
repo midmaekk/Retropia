@@ -171,3 +171,72 @@
     background: var(--primary-color);
     margin-top: 10px;
 }
+
+/* ==========================================================================
+   RESPONSIVE — Tablet (max-width: 992px)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .product-detail {
+        gap: 40px;
+        padding: 35px;
+    }
+
+    .product-info h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Immagine sopra, info sotto */
+    .product-detail {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 25px;
+    }
+
+    .product-image-wrapper {
+        width: 100%;
+    }
+
+    .product-image-wrapper img {
+        width: 100%;
+        max-height: 320px;
+        object-fit: contain;
+    }
+
+    .product-info h1 {
+        font-size: 1.8rem;
+    }
+
+    .product-info .price {
+        font-size: 1.8rem;
+    }
+
+    /* Opzioni acquisto: impila quantità e bottone su mobile */
+    .purchase-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .extra-info {
+        font-size: 0.9rem;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile piccolo (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .product-detail {
+        padding: 15px 12px;
+    }
+
+    .product-info h1 {
+        font-size: 1.5rem;
+    }
+}
+
